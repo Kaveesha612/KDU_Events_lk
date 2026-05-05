@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Event Update - KDU Events</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-navy: #001F54;
+            --primary-orange: #FF7F32;
+            --light-blue: #87CEEB;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-navy);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            color: var(--primary-orange);
+        }
+
+        .update-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .update-header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .update-header h1 {
+            color: var(--primary-navy);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-info {
+            color: #666;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .event-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .update-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 0.2rem rgba(255, 127, 50, 0.15);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .char-counter {
+            text-align: right;
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .btn-post {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-post:hover {
+            background: #e56a1f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 127, 50, 0.3);
+        }
+
+        .previous-updates {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 25px;
+        }
+
+        .update-card {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary-orange);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .update-text {
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .update-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid var(--light-blue);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .info-box i {
+            color: var(--light-blue);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="update-container">
+        <a href="event-details.html" class="back-button">
+            <i class="bi bi-arrow-left-circle"></i> Back to Event Details
+        </a>
+
+        <!-- Event Header -->
+        <div class="update-header">
+            <h1><i class="bi bi-megaphone"></i> Post Event Update</h1>
+            <div class="event-info">
+                <span><i class="bi bi-calendar-event"></i> Tech Innovation Summit 2025</span>
+                <span><i class="bi bi-clock"></i> March 15, 2025</span>
+                <span><i class="bi bi-geo-alt"></i> Main Auditorium</span>
+            </div>
+        </div>
+
+        <!-- Update Form -->
+        <div class="update-form-card">
+            <div class="info-box">
+                <i class="bi bi-info-circle"></i>
+                <strong>Note:</strong> Updates will be visible immediately to all registered students. 
+                Keep your updates informative and professional.
+            </div>
+
+            <form id="updateForm">
+                <div class="mb-4">
+                    <label for="updateText" class="form-label">
+                        Update Message <span style="color: #dc3545;">*</span>
+                    </label>
+                    <textarea class="form-control" id="updateText" name="updateText" 
+                              maxlength="500" required
+                              placeholder="Enter your update message here... (e.g., venue change, schedule update, important announcements)"></textarea>
+                    <div class="char-counter">
+                        <span id="charCount">0</span> / 500 characters
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-post">
+                    <i class="bi bi-send"></i> Post Update
+                </button>
+            </form>
+        </div>
+
+        <!-- Previous Updates -->
+        <div class="previous-updates">
+            <h3 class="section-title">Previous Updates</h3>
+
+            <div class="update-card">
+                <div class="update-text">
+                    <strong>Venue Changed:</strong> The event will now be held at the Main Auditorium 
+                    instead of the originally planned location. This change allows for better seating 
+                    arrangements and technical facilities.
+                </div>
+                <div class="update-meta">
+                    <span>Posted on March 1, 2025 at 10:30 AM</span>
+                    <button class="btn-delete" onclick="return confirm('Delete this update?')">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="update-card">
+                <div class="update-text">
+                    <strong>Registration Open:</strong> Registration for the Tech Innovation Summit is 
+                    now open! Please register through the event page to secure your spot.
+                </div>
+                <div class="update-meta">
+                    <span>Posted on February 20, 2025 at 2:15 PM</span>
+                    <button class="btn-delete" onclick="return confirm('Delete this update?')">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div style="text-align: center; color: #999; margin-top: 30px;">
+                <p>Showing 2 updates</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Character counter
+        const updateText = document.getElementById('updateText');
+        const charCount = document.getElementById('charCount');
+
+        updateText.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+
+        // Form submission
+        document.getElementById('updateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const text = updateText.value.trim();
+            if (text.length === 0) {
+                alert('Please enter an update message.');
+                return;
+            }
+
+            alert('Update posted successfully!\n\nYour update is now visible to all students.');
+            updateText.value = '';
+            charCount.textContent = '0';
+        });
+    </script>
+</body>
+</html>

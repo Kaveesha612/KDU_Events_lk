@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Event Permission - KDU Events</title>
+    <!-- Bootstrap 5.3.8 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-navy: #001F54;
+            --primary-orange: #FF7F32;
+            --light-blue: #87CEEB;
+            --light-gray: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-navy);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            color: var(--primary-orange);
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #003580 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            background: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            flex: 1;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 20px;
+            width: calc(100% - 60px);
+            height: 2px;
+            background: #e0e0e0;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step.active::after {
+            background: var(--primary-orange);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .step.active .step-number,
+        .step.completed .step-number {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .step-label {
+            font-weight: 600;
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        .step.active .step-label,
+        .step.completed .step-label {
+            color: var(--primary-navy);
+        }
+
+        /* Form Body */
+        .form-body {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            color: var(--primary-navy);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 0.2rem rgba(255, 127, 50, 0.15);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #e0e0e0;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 127, 50, 0.02);
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 127, 50, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        .file-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .btn-nav {
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-prev {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: #5a6268;
+        }
+
+        .btn-next,
+        .btn-submit {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            background: #e56a1f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 127, 50, 0.3);
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid var(--light-blue);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box i {
+            color: var(--light-blue);
+            margin-right: 10px;
+        }
+
+        /* Review Section */
+        .review-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 5px;
+        }
+
+        .review-value {
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .form-header,
+            .form-body {
+                padding: 25px;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .step::after {
+                display: none;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-nav {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <a href="organizer-dashboard.html" class="back-button">
+            <i class="bi bi-arrow-left-circle"></i> Back to Dashboard
+        </a>
+
+        <div class="form-header">
+            <h1>Request Event Permission</h1>
+            <p>Complete the following steps to submit your event for approval</p>
+        </div>
+
+        <div class="progress-steps">
+            <div class="step active completed" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Event Details</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Documents</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Review</div>
+            </div>
+        </div>
+
+        <div class="form-body">
+            <form id="permissionForm">
+                <!-- Step 1: Basic Information -->
+                <div class="form-step active" data-step="1">
+                    <div class="section-title">
+                        <i class="bi bi-info-circle"></i>
+                        Basic Event Information
+                    </div>
+                    <p class="section-subtitle">Provide the essential details about your event</p>
+
+                    <div class="info-box">
+                        <i class="bi bi-lightbulb"></i>
+                        <strong>Tip:</strong> Choose a clear, descriptive event name that students will easily recognize.
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="eventName" class="form-label">
+                            Event Name <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="eventName" 
+                               placeholder="e.g., Tech Innovation Summit 2025" required>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="eventDate" class="form-label">
+                                Event Date <span class="required">*</span>
+                            </label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="eventTime" class="form-label">
+                                Event Time <span class="required">*</span>
+                            </label>
+                            <input type="time" class="form-control" id="eventTime" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="eventCategory" class="form-label">
+                            Event Category <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="eventCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="academic">Academic</option>
+                            <option value="non-academic">Non-Academic</option>
+                            <option value="sports">Sports</option>
+                            <option value="cultural">Cultural</option>
+                            <option value="technical">Technical</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="venue" class="form-label">
+                            Venue <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="venue" 
+                               placeholder="e.g., Main Auditorium, Room 101" required>
+                    </div>
+                </div>
+
+                <!-- Step 2: Event Details -->
+                <div class="form-step" data-step="2">
+                    <div class="section-title">
+                        <i class="bi bi-card-text"></i>
+                        Detailed Event Information
+                    </div>
+                    <p class="section-subtitle">Provide comprehensive details about your event</p>
+
+                    <div class="mb-4">
+                        <label for="eventDescription" class="form-label">
+                            Event Description <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" id="eventDescription" 
+                                  placeholder="Describe your event, its purpose, and what attendees can expect..." 
+                                  required></textarea>
+                        <small class="text-muted">Minimum 100 characters</small>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="expectedAttendance" class="form-label">
+                                Expected Attendance <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-control" id="expectedAttendance" 
+                                   placeholder="e.g., 150" min="1" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="budget" class="form-label">
+                                Budget (LKR)
+                            </label>
+                            <input type="number" class="form-control" id="budget" 
+                                   placeholder="e.g., 50000" min="0">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="targetAudience" class="form-label">
+                            Target Audience <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="targetAudience" required>
+                            <option value="">Select Target Audience</option>
+                            <option value="all-students">All Students</option>
+                            <option value="faculty-of-technology">Faculty of Technology</option>
+                            <option value="faculty-of-engineering">Faculty of Engineering</option>
+                            <option value="specific-intake">Specific Intake</option>
+                            <option value="open-to-public">Open to Public</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="specialRequirements" class="form-label">
+                            Special Requirements
+                        </label>
+                        <textarea class="form-control" id="specialRequirements" 
+                                  placeholder="Any special equipment, setup, or arrangements needed..." 
+                                  rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 3: Upload Documents -->
+                <div class="form-step" data-step="3">
+                    <div class="section-title">
+                        <i class="bi bi-file-earmark-arrow-up"></i>
+                        Upload Permission Letter
+                    </div>
+                    <p class="section-subtitle">Upload your official permission request letter</p>
+
+                    <div class="info-box">
+                        <i class="bi bi-info-circle"></i>
+                        <strong>Note:</strong> Please upload a formal permission request letter addressed to the Vice Chancellor. 
+                        Accepted format: PDF (Max size: 5MB)
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Permission Request Letter <span class="required">*</span>
+                        </label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <div class="upload-icon">
+                                <i class="bi bi-cloud-upload"></i>
+                            </div>
+                            <h5>Drag & Drop your file here</h5>
+                            <p class="text-muted">or click to browse</p>
+                            <input type="file" id="permissionLetter" accept=".pdf" style="display: none;" required>
+                        </div>
+                        <div class="file-info" id="fileInfo">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="bi bi-file-pdf text-danger" style="font-size: 1.5rem;"></i>
+                                    <strong id="fileName">filename.pdf</strong>
+                                    <span class="text-muted" id="fileSize">(2.3 MB)</span>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-danger" id="removeFile">
+                                    <i class="bi bi-x-circle"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="additionalNotes" class="form-label">
+                            Additional Notes
+                        </label>
+                        <textarea class="form-control" id="additionalNotes" 
+                                  placeholder="Any additional information for the approval committee..." 
+                                  rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review & Submit -->
+                <div class="form-step" data-step="4">
+                    <div class="section-title">
+                        <i class="bi bi-check-circle"></i>
+                        Review Your Submission
+                    </div>
+                    <p class="section-subtitle">Please review all information before submitting</p>
+
+                    <div class="info-box">
+                        <i class="bi bi-info-circle"></i>
+                        <strong>Important:</strong> Once submitted, your request will enter the approval workflow 
+                        (Admin → DVC → VC). You'll be notified of any status changes.
+                    </div>
+
+                    <h5 class="mb-3 mt-4" style="color: var(--primary-navy);">Basic Information</h5>
+                    <div class="review-item">
+                        <div class="review-label">Event Name</div>
+                        <div class="review-value" id="review-eventName">-</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="review-item">
+                                <div class="review-label">Event Date</div>
+                                <div class="review-value" id="review-eventDate">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="review-item">
+                                <div class="review-label">Event Time</div>
+                                <div class="review-value" id="review-eventTime">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="review-item">
+                                <div class="review-label">Category</div>
+                                <div class="review-value" id="review-eventCategory">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="review-item">
+                                <div class="review-label">Venue</div>
+                                <div class="review-value" id="review-venue">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 mt-4" style="color: var(--primary-navy);">Event Details</h5>
+                    <div class="review-item">
+                        <div class="review-label">Description</div>
+                        <div class="review-value" id="review-eventDescription">-</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="review-item">
+                                <div class="review-label">Expected Attendance</div>
+                                <div class="review-value" id="review-expectedAttendance">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="review-item">
+                                <div class="review-label">Budget</div>
+                                <div class="review-value" id="review-budget">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 mt-4" style="color: var(--primary-navy);">Documents</h5>
+                    <div class="review-item">
+                        <div class="review-label">Permission Letter</div>
+                        <div class="review-value" id="review-permissionLetter">-</div>
+                    </div>
+
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="confirmSubmit" required>
+                        <label class="form-check-label" for="confirmSubmit">
+                            I confirm that all information provided is accurate and complete.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" class="btn-nav btn-prev" id="prevBtn" style="display: none;">
+                        <i class="bi bi-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn-nav btn-next" id="nextBtn">
+                        Next <i class="bi bi-arrow-right"></i>
+                    </button>
+                    <button type="submit" class="btn-nav btn-submit" id="submitBtn" style="display: none;">
+                        <i class="bi bi-send"></i> Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // File upload handling
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('permissionLetter');
+        const fileInfo = document.getElementById('fileInfo');
+        const removeFileBtn = document.getElementById('removeFile');
+
+        fileUploadArea.addEventListener('click', () => fileInput.click());
+
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.add('dragover');
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.classList.remove('dragover');
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        removeFileBtn.addEventListener('click', () => {
+            fileInput.value = '';
+            fileInfo.classList.remove('show');
+        });
+
+        function handleFile(file) {
+            if (file.type === 'application/pdf') {
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileSize').textContent = `(${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+                fileInfo.classList.add('show');
+            } else {
+                alert('Please upload a PDF file only.');
+            }
+        }
+
+        // Step navigation
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                updateStep();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentStep--;
+            updateStep();
+        });
+
+        function updateStep() {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // Show current step
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+
+            // Update progress steps
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update buttons
+            document.getElementById('prevBtn').style.display = currentStep === 1 ? 'none' : 'flex';
+            document.getElementById('nextBtn').style.display = currentStep === totalSteps ? 'none' : 'flex';
+            document.getElementById('submitBtn').style.display = currentStep === totalSteps ? 'flex' : 'none';
+
+            // Populate review if on step 4
+            if (currentStep === 4) {
+                populateReview();
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function validateStep(step) {
+            const currentStepElement = document.querySelector(`.form-step[data-step="${step}"]`);
+            const inputs = currentStepElement.querySelectorAll('[required]');
+
+            for (let input of inputs) {
+                if (!input.value) {
+                    input.focus();
+                    alert('Please fill in all required fields.');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function populateReview() {
+            document.getElementById('review-eventName').textContent = document.getElementById('eventName').value;
+            document.getElementById('review-eventDate').textContent = document.getElementById('eventDate').value;
+            document.getElementById('review-eventTime').textContent = document.getElementById('eventTime').value;
+            document.getElementById('review-eventCategory').textContent = document.getElementById('eventCategory').options[document.getElementById('eventCategory').selectedIndex].text;
+            document.getElementById('review-venue').textContent = document.getElementById('venue').value;
+            document.getElementById('review-eventDescription').textContent = document.getElementById('eventDescription').value;
+            document.getElementById('review-expectedAttendance').textContent = document.getElementById('expectedAttendance').value + ' people';
+            document.getElementById('review-budget').textContent = 'LKR ' + (document.getElementById('budget').value || '0');
+            document.getElementById('review-permissionLetter').textContent = document.getElementById('fileName').textContent || 'No file uploaded';
+        }
+
+        // Form submission
+        document.getElementById('permissionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!document.getElementById('confirmSubmit').checked) {
+                alert('Please confirm that all information is accurate.');
+                return;
+            }
+
+            alert('Form submitted successfully!\n\nYour event permission request has been submitted for approval.\nYou will be notified once the admin reviews your request.');
+            // window.location.href = 'organizer-dashboard.html';
+        });
+    </script>
+</body>
+</html>
