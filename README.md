@@ -6,7 +6,7 @@ KDU Events is a responsive, web-based campus event management platform developed
 
 Campus event information is often scattered across multiple channels such as notice boards, WhatsApp groups, and social media. This leads to:<br> 
 
--Confusion and misinformation<br> 
+- Confusion and misinformation<br> 
 -Poor coordination<br> 
 -Low event participation<br> 
 <br> 
