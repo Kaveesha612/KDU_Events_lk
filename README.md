@@ -39,7 +39,7 @@ Optimized for desktops, tablets, and mobile devices<br>
 - Smooth transitions and hover effects<br> 
 
 ## 🔮 Future Enhancements <br> 
-<br> 
+
 The platform is designed with scalability in mind and can be extended with: <br> 
 
 - 🔐 User authentication system<br> 
@@ -50,5 +50,5 @@ The platform is designed with scalability in mind and can be extended with: <br>
 - 🔔 Real-time notifications<br> 
 
 ## 🎯 Purpose <br> 
-<br> 
+
 This project demonstrates practical application of modern web development practices to solve real-world challenges in university event management, while laying the foundation for a fully functional event management system.<br> 
