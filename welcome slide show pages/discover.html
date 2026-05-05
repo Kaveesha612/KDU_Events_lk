@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover Campus Events - KDU Events</title>
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      line-height:1.6;
+      color:#333;
+      overflow-x:hidden;
+    }
+
+    .navbar {
+      background:#001F54;
+      height:80px;
+      margin:10px;
+      box-shadow:0 2px 4px rgba(0,0,0,0.6);
+      border-radius:16px;
+      padding:0.5rem 2rem;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+    }
+
+    .navbar-brand img {
+      height:60px;
+      width:auto;
+      transition:transform 0.3s;
+    }
+
+    .navbar-brand img:hover {
+      transform:scale(1.05);
+    }
+
+    .navbar-toggler {
+      border:none;
+      font-size:1.25rem;
+      color:#fff;
+    }
+
+    .nav-link {
+      color:#fff !important;
+      font-weight:500;
+      font-size:1rem;
+      position:relative;
+      padding:0.5rem 1rem;
+      transition:color 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color:#FF7F32 !important;
+    }
+
+    @media (min-width:992px) {
+      .nav-link:before {
+        content:'';
+        position:absolute;
+        bottom:0;
+        left:50%;
+        width:0;
+        height:3px;
+        background:#FF7F32;
+        transition:width 0.3s,left 0.3s;
+      }
+
+      .nav-link:hover:before,
+      .nav-link.active:before {
+        width:80%;
+        left:10%;
+      }
+    }
+
+    footer {
+      background:#001F54;
+      color:#fff;
+      padding:40px 20px 20px;
+      margin-top:60px;
+    }
+
+    footer h5 {
+      color:#FF7F32;
+      margin-bottom:20px;
+    }
+
+    footer a {
+      color:#fff;
+      text-decoration:none;
+      transition:color 0.3s;
+    }
+
+    footer a:hover {
+      color:#FF7F32;
+    }
+
+    
+    .category-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 2px solid #e0e0e0;
+      height: 100%;
+    }
+
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(255, 127, 50, 0.3);
+      border-color: #FF7F32;
+    }
+
+    .category-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      transition: all 0.3s;
+    }
+
+    .category-card:hover .category-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .event-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      height: 100%;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .event-card-body {
+      padding: 20px;
+    }
+
+    .badge-custom {
+      background: linear-gradient(135deg, #FF7F32, #ff9d5c);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 50px 0 !important;
+      }
+      
+      .hero-section h1 {
+        font-size: 2.5rem !important;
+      }
+    }
+  
+    /* Search Bar Styles */
+    .search-bar {
+  background:#FF7F32;
+  border:none;
+  border-radius:50px;
+  padding:0.7rem 1.5rem;
+  color:#fff;                        /* Text color - white */
+  font-size:1rem;
+  outline:none;
+  transition:all 0.3s;
+}
+
+.search-bar::placeholder {
+  color:rgba(255, 255, 255, 0.8);   /* Placeholder color - transparent white */
+}
+
+    .search-btn {
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-60%);
+      background:transparent;
+      border:none;
+      color:#fff;
+      font-size:21px;
+      cursor:pointer;
+
+    }
+
+    /* Footer Styles */
+.footer {
+  background:#001F54;
+  color:#fff;
+  padding:40px 0 20px;
+}
+
+.footer-content {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:3rem;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 2rem;
+}
+
+.footer-section h4 {
+  color:#FF7F32;
+  margin-bottom:1.8rem;
+  font-size:1.3rem;
+}
+
+.footer-section ul {
+  list-style:none;
+  padding:0;
+}
+
+/* ← ADD THIS NEW RULE HERE */
+.footer-section li {
+  margin-bottom:1rem;        /* This controls line spacing */
+}
+/* ← END OF NEW RULE */
+
+.footer-section a {
+  color:#fff;
+  text-decoration:none;
+  transition:all 0.3s;
+}
+
+.footer-section a:hover {
+  color:#FF7F32;
+  padding-left:5px;
+}
+
+.social-icon {
+  width: 60px;   /* Exact container size */
+  height: 60px;
+}
+
+.social-icon img {
+  width: 60px !important;    /* Force exact size */
+  height: 60px !important;   /* Override any conflicts */
+  object-fit: cover;         /* Fill circle perfectly */
+  border-radius: 50%;        /* Circular shape */
+}
+
+.social-icon:hover {
+  transform: scale(1.15);  /* Just grows 15% larger */
+}
+
+.footer-bottom {
+      border-top:1px solid #333;
+      margin-top:2rem;
+      padding-top:2rem;
+      text-align:center;
+
+    }
+   /* Dropdown Menu Styles - Stronger specificity */
+.dropdown-menu {
+  background:#001F54 !important;
+  border:none !important;
+  border-radius:10px !important;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3) !important;
+  margin-top:0.5rem !important;
+}
+
+.dropdown-item {
+  color:#fff !important;
+  padding:0.7rem 1.5rem !important;
+  transition:all 0.3s !important;
+  background:transparent !important;
+}
+
+.dropdown-item:hover {
+  background:#FF7F32 !important;
+  color:#fff !important;
+}
+
+.dropdown-item.disabled {
+  color:rgba(255,255,255,0.4) !important;
+  cursor:not-allowed !important;
+  opacity:0.6 !important;
+}
+
+.dropdown-divider {
+  border-color:rgba(255,255,255,0.2) !important;
+}
+
+/* Additional fix for Bootstrap override */
+.navbar .dropdown-menu {
+  background-color:#001F54 !important;
+}
+
+/* Button Hover Effects for Explore Now and Start Exploring */
+.btn-explore-primary {
+  background: #FF7F32 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 15px rgba(255, 127, 50, 0.4) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-explore-primary:hover {
+  background: #ff9d5c !important;
+  color: white !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(255, 127, 50, 0.6) !important;
+}
+
+.btn-explore-primary:active {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 10px rgba(255, 127, 50, 0.5) !important;
+}
+
+.btn-explore-secondary {
+  background: #001F54 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 31, 84, 0.3) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-explore-secondary:hover {
+  background: #003d82 !important;
+  color: white !important;
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 6px 20px rgba(0, 31, 84, 0.5) !important;
+}
+
+.btn-explore-secondary:active {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 3px 10px rgba(0, 31, 84, 0.4) !important;
+}
+
+/* Ripple effect animation */
+.btn-explore-primary:before,
+.btn-explore-secondary:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-explore-primary:hover:before,
+.btn-explore-secondary:hover:before {
+  width: 300px;
+  height: 300px;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar (Copy from home.html) -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="..\home.html">
+        <img src="../assets/images/Logo.png"style="height:80px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="..\home.html">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+            <li><a class="dropdown-item" href="..\academic events.html">Academic Events</a></li>
+            <li><a class="dropdown-item" href="..\non academic event.html">Non-Academic Events</a></li>
+            <li><hr class="dropdown-divider"></li>
+            
+          </ul>
+        </li>
+          <li class="nav-item"><a class="nav-link" href="..\updates.html">Updates</a></li>
+        <li class="nav-item"><a class="nav-link" href="..\about us.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="..\contact us.html">Contact Us</a></li>
+        </ul>
+        <form class="position-relative" style="width:240px; margin-left:30px;">
+          <input class="search-bar" type="search" placeholder="Search..." aria-label="Search" style="width:100%;padding-right:48px;">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg height="22" width="22" viewBox="0 0 24 24" fill="#fff"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16.6" y2="16.6" stroke="#fff" stroke-width="2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+<!-- Hero Section -->
+<section class="hero-section" style="margin-top: 100px; padding: 80px 0; background: linear-gradient(135deg, #001F54 0%, #003d82 100%);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8 mx-auto text-center text-white">
+        <h1 class="display-3 fw-bold mb-3">Discover <span style="color: #FF7F32;">CAMPUS EVENTS</span></h1>
+        <p class="lead mb-4">Explore a diverse range of cultural, academic, sports, and social events happening at KDU. From music festivals to tech talks, find something that ignites your passion.</p>
+       
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Event Categories Section -->
+<section class="categories-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="fw-bold" style="color: #001F54;">Browse by Category</h2>
+        <p class="text-muted">Find events that match your interests</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <!-- Cultural Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#cultural" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #FF7F32, #ff9d5c);">
+              🎭
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Cultural</h5>
+            <p class="text-muted small mb-0">Festivals, traditions, and cultural celebrations</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Music Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#music" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #001F54, #003d82);">
+              🎵
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Music</h5>
+            <p class="text-muted small mb-0">Concerts, performances, and musical showcases</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Sports Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#sports" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #FF7F32, #ff9d5c);">
+              ⚽
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Sports</h5>
+            <p class="text-muted small mb-0">Tournaments, matches, and fitness activities</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Academic Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#academic" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #001F54, #003d82);">
+              📚
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Academic</h5>
+            <p class="text-muted small mb-0">Workshops, seminars, and guest lectures</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Club Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#clubs" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #FF7F32, #ff9d5c);">
+              🤝
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Clubs</h5>
+            <p class="text-muted small mb-0">Student club activities and meetups</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Festival Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#festivals" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #001F54, #003d82);">
+              🎉
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Festivals</h5>
+            <p class="text-muted small mb-0">Multi-day celebrations and special occasions</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Tech Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#tech" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #FF7F32, #ff9d5c);">
+              💻
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Technology</h5>
+            <p class="text-muted small mb-0">Hackathons, coding sessions, and tech talks</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Social Events -->
+      <div class="col-md-6 col-lg-3">
+        <a href="non academic event.html#social" class="text-decoration-none">
+          <div class="category-card">
+            <div class="category-icon" style="background: linear-gradient(135deg, #001F54, #003d82);">
+              🎊
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #001F54;">Social</h5>
+            <p class="text-muted small mb-0">Networking, parties, and social gatherings</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Events Section -->
+<section class="featured-events py-5" style="background: #f8f9fa;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="fw-bold" style="color: #001F54;">Featured Events</h2>
+        <p class="text-muted">Don't miss these exciting upcoming events</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <!-- Event 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="../assets/images/talento.jpg" alt="Talento Event">
+          <div class="event-card-body">
+            <span class="badge-custom">Cultural</span>
+            <h5 class="fw-bold mt-3 mb-2" style="color: #001F54;">Talento 2025</h5>
+            <p class="text-muted small mb-3">Showcase your talents in this premier cultural extravaganza featuring dance, music, and drama performances.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">📅 Coming Soon</small>
+              <a href="non academic event.html" class="btn btn-sm" style="background: #FF7F32; color: white; border: none; border-radius: 20px; padding: 5px 20px;">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="../assets/images/pongal.jpeg" alt="Pongal Festival">
+          <div class="event-card-body">
+            <span class="badge-custom">Festival</span>
+            <h5 class="fw-bold mt-3 mb-2" style="color: #001F54;">Pongal Festival</h5>
+            <p class="text-muted small mb-3">Celebrate the traditional harvest festival with authentic customs, games, and delicious food.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">📅 January 2026</small>
+              <a href="non academic event.html" class="btn btn-sm" style="background: #FF7F32; color: white; border: none; border-radius: 20px; padding: 5px 20px;">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="../assets/images/rota.jpg" alt="Rota Event">
+          <div class="event-card-body">
+            <span class="badge-custom">Social</span>
+            <h5 class="fw-bold mt-3 mb-2" style="color: #001F54;">Rota Event</h5>
+            <p class="text-muted small mb-3">An exciting social gathering bringing together students from all faculties for networking and fun.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">📅 Coming Soon</small>
+              <a href="non academic event.html" class="btn btn-sm" style="background: #FF7F32; color: white; border: none; border-radius: 20px; padding: 5px 20px;">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How to Browse Section -->
+<section class="how-to-browse py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="fw-bold" style="color: #001F54;">How to Browse Events</h2>
+        <p class="text-muted">Three easy ways to find your perfect event</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="text-center p-4">
+          <div class="mb-3" style="width: 70px; height: 70px; background: linear-gradient(135deg, #FF7F32, #ff9d5c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem;">
+            🔍
+          </div>
+          <h5 class="fw-bold" style="color: #001F54;">Search Bar</h5>
+          <p class="text-muted">Use keywords to quickly find specific events by name, type, or date.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center p-4">
+          <div class="mb-3" style="width: 70px; height: 70px; background: linear-gradient(135deg, #001F54, #003d82); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem;">
+            📊
+          </div>
+          <h5 class="fw-bold" style="color: #001F54;">Events Grid</h5>
+          <p class="text-muted">Browse through all events in a visual grid layout with filters and sorting options.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center p-4">
+          <div class="mb-3" style="width: 70px; height: 70px; background: linear-gradient(135deg, #FF7F32, #ff9d5c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem;">
+            📅
+          </div>
+          <h5 class="fw-bold" style="color: #001F54;">Calendar View</h5>
+          <p class="text-muted">View events organized by date in an interactive calendar interface.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+     
+    </div>
+  </div>
+</section>
+
+<!-- Footer (Copy from home.html) -->
+<footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="..\home.html">Home</a></li>
+          <li><a href="..\non academic event.html">Events</a></li>
+          <li><a href="..\about us.html">About Us</a></li>
+          <li><a href="..\contact us.html">Contact Us</a></li>
+          <li><a href="..\request event process pages\organizer-login.html">Request Event Permission</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p>📍 Kandawala Road, Ratmalana,<br>Mount Lavinia 10390</p>
+        <p>✉️ info@events.kdu.ac.lk</p>
+        <p>📞 +94 11 255 3000</p>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+        <a href="https://facebook.com" class="social-icon" target="_blank">
+          <img src="../assets/images/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://youtube.com" class="social-icon" target="_blank">
+          <img src="../assets/images/youtube.png" alt="YouTube">
+        </a>
+        <a href="https://instagram.com" class="social-icon" target="_blank">
+          <img src="../assets/images/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://wa.me/1234567890" class="social-icon" target="_blank">
+          <img src="../assets/images/whatsapp.png" alt="WhatsApp">
+        </a>
+      </div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KDU Events. All rights reserved.</p>
+    </div>
+  </footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Smooth scrolling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Active nav link
+  const currentPage = window.location.pathname.split('/').pop();
+  document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
+</body>
+</html>

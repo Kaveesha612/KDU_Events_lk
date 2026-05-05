@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <title>Organize Your Events</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* General Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        body {
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+
+        }
+
+    
+    .navbar {
+      background:#001F54;
+      height:80px;
+      margin:20px;
+      box-shadow:0 2px 4px rgba(0,0,0,0.6);
+      border-radius:16px;
+      padding:0.5rem 2rem;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+
+    }
+
+    .navbar-brand img {
+      height:60px;
+      width:auto;
+      transition:transform 0.3s;
+
+    }
+
+    .navbar-brand img:hover {
+      transform:scale(1.05);
+
+    }
+
+    .navbar-toggler {
+      border:none;
+      font-size:1.25rem;
+      color:#fff;
+
+    }
+
+    .nav-link {
+      color:#fff !important;
+      font-weight:500;
+      font-size:1rem;
+      position:relative;
+      padding:0.5rem 1rem;
+      transition:color 0.3s;
+
+    }
+
+    .nav-link:hover,.nav-link.active {
+      color:#FF7F32 !important;
+
+    }
+
+    @media (min-width:992px) {
+      .nav-link::before {
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:0;
+      height:2px;
+      background:#FF7F32;
+      transition:width 0.3s;
+
+    }
+
+    .nav-link:hover::before {
+      width:80%;
+
+    }
+
+    }
+
+    .search-bar {
+      background:#FF7F32;
+      border-radius:25px;
+      border:none;
+      padding:0.5rem 1rem;
+      width:210px;
+      color:#fff;
+      outline:none;
+      transition:all 0.3s;
+
+    }
+
+    .search-bar::placeholder {
+      color:rgba(255,255,255,.8);
+
+    }
+
+    .search-bar:focus {
+      width:250px;
+      background:#e56a1f;
+
+    }
+
+    .search-btn {
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-60%);
+      background:transparent;
+      border:none;
+      color:#fff;
+      font-size:21px;
+      cursor:pointer;
+
+    }
+
+/* Dropdown menu styling - UPDATED */
+.navbar .dropdown-menu {
+    background: #001F54 !important; /* Force blue background */
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+    margin-top: 0.5rem !important;
+    padding: 0.5rem 0 !important;
+}
+
+.navbar .dropdown-item {
+    color: #fff !important;
+    padding: 0.7rem 1.5rem !important;
+    transition: all 0.3s !important;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    background: #FF7F32 !important;
+    color: #fff !important;
+}
+
+.navbar .dropdown-item.disabled {
+    color: rgba(255,255,255,0.4) !important;
+    cursor: not-allowed !important;
+}
+
+.navbar .dropdown-divider {
+    border-color: rgba(255,255,255,0.2) !important;
+    margin: 0.5rem 0 !important;
+}
+
+    .event-card.smooth-transition {
+
+      transition:all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    }
+
+        /* Main Content and Title */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 100px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2em;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #333;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #004a99; /* Dark blue for section titles */
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+       
+
+        /* Organizer Toolkit (Cards) */
+        .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-height: 200px; /* Consistent height for visual appeal */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool-card h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .tool-icon {
+            font-size: 2.5em;
+            color: #ff6600; /* Use orange accent */
+            margin-bottom: 10px;
+        }
+
+        /* Approval and Publishing Flow (Infographic) */
+        .infographic-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .infographic-flow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background-color: #ccc;
+            z-index: 1;
+        }
+
+        .step {
+            width: 20%;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            font-size: 1.2em;
+            border: 4px solid white; /* Visual pop-out from the line */
+            box-shadow: 0 0 0 2px #007bff;
+        }
+
+        .step p {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .request-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .request-button {
+            background-color: #00cc66; /* Green for action */
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .request-button:hover {
+            background-color: #00b359;
+        }
+        
+
+        /* Best Practices (Checklist) */
+        .best-practices-list {
+            list-style: none;
+            padding-left: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .best-practices-list li {
+            background-color: #e6f7ff; /* Light blue background */
+            padding: 15px;
+            border-left: 5px solid #007bff;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .best-practices-list li::before {
+            content: '✓';
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+         .footer {
+      background:#001F54;
+      color:#fff;
+      padding:40px 0 20px;
+
+    }
+
+    .footer-content {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:3rem;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 2rem;
+
+    }
+
+    .footer-section h4 {
+      color:#FF7F32;
+      margin-bottom:1.5rem;
+      font-size:1.3rem;
+
+    }
+
+    .footer-section ul {
+      list-style:none;
+      padding:0;
+
+    }
+
+    .footer-section ul li {
+      margin-bottom:0.8rem;
+
+    }
+
+    .footer-section a {
+      color:#fff;
+      text-decoration:none;
+      transition:all 0.3s;
+
+    }
+
+    .footer-section a:hover {
+      color:#FF7F32;
+      padding-left:5px;
+
+    }
+
+    .footer-section p {
+      margin-bottom:0.8rem;
+      line-height:1.8;
+
+    }
+
+    .social-icon {
+  width: 60px;   /* Exact container size */
+  height: 60px;
+}
+
+.social-icon img {
+  width: 60px !important;    /* Force exact size */
+  height: 60px !important;   /* Override any conflicts */
+  object-fit: cover;         /* Fill circle perfectly */
+  border-radius: 50%;        /* Circular shape */
+}
+
+social-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.social-icon:hover {
+  transform: scale(1.15);  /* Just grows 15% larger */
+}
+
+
+    .footer-bottom {
+      border-top:1px solid #333;
+      margin-top:2rem;
+      padding-top:1.5rem;
+      text-align:center;
+
+    }
+   
+    </style>
+</head>
+<body>
+
+
+
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../home.html">
+        <img src="../assets/images/Logo.png"style="height:80px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="../home.html">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+            <li><a class="dropdown-item" href="../academic event.html">Academic Events</a></li>
+            <li><a class="dropdown-item" href="../non academic event.html">Non-Academic Events</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+          </ul>
+        </li>
+          <li class="nav-item"><a class="nav-link" href="../updates.html">Updates</a></li>
+        <li class="nav-item"><a class="nav-link" href="../about us.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contact us.html">Contact Us</a></li>
+        </ul>
+        <form class="position-relative" style="width:240px; margin-left:30px;">
+          <input class="search-bar" type="search" placeholder="Search..." aria-label="Search" style="width:100%;padding-right:48px;">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg height="22" width="22" viewBox="0 0 24 24" fill="#fff"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16.6" y2="16.6" stroke="#fff" stroke-width="2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+    <div class="container">
+        <h1>Organize Your Events: Publish, Promote, Manage</h1>
+
+        <section id="toolkit">
+            <h2>Organizer Toolkit 🛠️</h2>
+            <p style="margin-bottom: 25px; color: #555;">Discover the essential tools to make your event a success, from initial listing to post-event analysis.</p>
+
+            <div class="toolkit-grid">
+                <div class="tool-card">
+                    <span class="tool-icon">📋</span>
+                    <h3>Event Listing</h3>
+                    <p>Create a dedicated page for your event with essential information, images, and registration links.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">✅</span>
+                    <h3>Approval Tracking</h3>
+                    <p>Monitor your submission status and communicate directly with the administration team.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">📅</span>
+                    <h3>Calendar Exposure</h3>
+                    <p>Ensure your event is featured prominently on the main organizational calendar for maximum visibility.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">📢</span>
+                    <h3>Promotional Assets</h3>
+                    <p>Access templates and guidelines for posters, social media graphics, and press releases.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">📊</span>
+                    <h3>Future Analytics</h3>
+                    <p>Review attendance data and feedback to plan and improve your next event successfully.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr style="border: 0; height: 1px; background-color: #ccc; margin: 40px 0;">
+
+        <section id="approval-flow">
+            <h2>Approval and Publishing Flow 🚀</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: #555;">Follow these simple steps to get your event published and officially go live!</p>
+
+            <div class="infographic-flow">
+                <div class="step">
+                    <div class="step-circle">1</div>
+                    <p>Submit Request</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <p>Review by Admin</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <p>Approval Granted</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <p>Go Live!</p>
+                </div>
+            </div>
+
+            <div class="request-button-container">
+                <a href="request-permission.html" class="request-button">Request Event Permission &rarr;</a>
+            </div>
+        </section>
+
+        <hr style="border: 0; height: 1px; background-color: #ccc; margin: 40px 0;">
+
+        <section id="best-practices">
+            <h2>Best Practices for Quality Listings ✨</h2>
+            <p style="margin-bottom: 25px; color: #555;">A quality listing ensures maximum engagement and attendance for your event.</p>
+
+            <ul class="best-practices-list">
+                <li><strong>Clear Title:</strong> Keep it concise, catchy, and descriptive.</li>
+                <li><strong>Date & Time:</strong> Specify start and end times clearly, including time zones if necessary.</li>
+                <li><strong>Venue:</strong> Provide the exact location and any necessary directions or room numbers.</li>
+                <li><strong>Poster/Image:</strong> Use a high-quality, non-busy visual (JPEG/PNG) with consistent styling.</li>
+                <li><strong>Concise Description:</strong> Explain the event's purpose, target audience, and key highlights briefly.</li>
+                <li><strong>Contact:</strong> Include a direct, accessible email or phone number for inquiries.</li>
+                <li><strong>Accessibility Notes:</strong> Mention any accessibility accommodations (e.g., ramps, sign language).</li>
+            </ul>
+        </section>
+    </div>
+      <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../home.html">Home</a></li>
+          <li><a href="../non academic event.html">Events</a></li>
+          <li><a href="../about us.html">About Us</a></li>
+          <li><a href="../contact us.html">Contact Us</a></li>
+          <li><a href="../request event process pages\organizer-login.html">Request</a></li> 
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+<p>📍 <span style="pointer-events: none;">Kandawala Road, Ratmalana,<br>Mount Lavinia 10390</span></p>
+<p>✉️ <span style="pointer-events: none;">info@events.kdu.ac.lk</span></p>
+<p>📞 <span style="pointer-events: none;">+94 11 255 3000</span></p>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+        <a href="https://facebook.com" class="social-icon" target="_blank">
+          <img src="../assets/images/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://youtube.com" class="social-icon" target="_blank">
+          <img src="../assets/images/youtube.png" alt="YouTube">
+        </a>
+        <a href="https://instagram.com" class="social-icon" target="_blank">
+          <img src="../assets/images/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://wa.me/1234567890" class="social-icon" target="_blank">
+          <img src="../assets/images/whatsapp.png" alt="WhatsApp">
+        </a>
+      </div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KDU Events. All rights reserved.</p>
+    </div>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

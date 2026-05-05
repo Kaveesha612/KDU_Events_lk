@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Define a simple color palette for brand-alignment */
+            --primary-color: #0056b3; /* A strong blue */
+            --secondary-color: #007bff;
+            --color-primary-navy: #002d62; /* A lighter blue for highlights */
+           --color-accent-orange: #ff6600;
+            --text-color: #333;
+            --background-light: #f4f7f6;
+            --card-background: #fff;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+       
+ 
+        body {
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-light);
+            margin: 0;
+            padding: 0;
+            padding-top: 120px; /* Account for fixed navbar height */
+            
+}
+    
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto 20px auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+        .page-header {
+        text-align: center;
+        padding: 170px 0;
+        margin-bottom: 40px;
+        background-color:#002d62; 
+        color: white;
+        margin: -150px 0 40px 0;
+       
+    
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: white;
+    border-bottom: 3px solid var(--color-accent-orange);
+    display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+
+}
+
+.page-header h2 {
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+ .navbar {
+    background: #001F54 !important;
+    height: 80px;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    border-radius: 16px;
+    width: calc(100% - 40px); /* Account for left/right margin */
+    padding: 0.5rem 2rem;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+
+    .navbar-brand img {
+      height:60px;
+      width:auto;
+      transition:transform 0.3s;
+
+    }
+
+    .navbar-brand img:hover {
+      transform:scale(1.05);
+
+    }
+
+    .navbar-toggler {
+      border:none;
+      font-size:1.25rem;
+      color:#fff;
+
+    }
+
+    .nav-link {
+      color:#fff !important;
+      font-weight:500;
+      font-size:1rem;
+      position:relative;
+      padding:0.5rem 1rem;
+      transition:color 0.3s;
+
+    }
+
+    .nav-link:hover,.nav-link.active {
+      color:#FF7F32 !important;
+
+    }
+
+    @media (min-width:992px) {
+      .nav-link::before {
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:0;
+      height:2px;
+      background:#FF7F32;
+      transition:width 0.3s;
+
+    }
+
+    .nav-link:hover::before {
+      width:80%;
+
+    }
+
+    }
+
+    .search-bar {
+      background:#FF7F32;
+      border-radius:25px;
+      border:none;
+      padding:0.5rem 1rem;
+      width:210px;
+      color:#fff;
+      outline:none;
+      transition:all 0.3s;
+
+    }
+
+    .search-bar::placeholder {
+      color:rgba(255,255,255,.8);
+
+    }
+
+    .search-bar:focus {
+      width:250px;
+      background:#e56a1f;
+
+    }
+
+    .search-btn {
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-60%);
+      background:transparent;
+      border:none;
+      color:#fff;
+      font-size:21px;
+      cursor:pointer;
+
+    }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--shadow-color), rgba(0, 0, 0, 0));
+            margin: 40px 0;
+        }
+
+        /* 1. Benefits List Section 
+         * Uses CSS Grid for a clean, responsive card layout
+         */
+        .benefits-grid {
+            display: grid;
+            /* Create 3 columns, dropping to 2 or 1 on smaller screens */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+       .benefit-card {
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid #FF7F32;
+}
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-card i {
+            font-size: 36px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            margin: 10px 0;
+            color: var(--text-color);
+        }
+.section-benefits h2,
+.section-participate h2,
+.section-stories h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    color: #001F54;
+    text-align: center;
+    position: relative;
+}
+
+.section-benefits h2::after,
+.section-participate h2::after,
+.section-stories h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #FF7F32;
+}
+
+        /* 2. How to Participate Section 
+         * Uses Flexbox for step-by-step cards
+         */
+        .participation-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+       .step-card {
+    background-color: white;
+    padding: 30px 20px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #FF7F32;
+    position: relative;
+    text-align: center;
+}
+
+       .step-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FF7F32;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+      .step-card h3 {
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+        .step-link, .step-icon-large {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .step-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .step-link:hover {
+            text-decoration: underline;
+               color: #001F54;
+        }
+
+        .step-icon-large {
+            font-size: 30px;
+            color: var(--primary-color);
+        }
+
+        /* 3. Stories from Campus Section 
+         * Uses CSS Grid for image tiles
+         */
+        .stories-grid {
+            display: grid;
+            /* 3 columns for 3 tiles */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .story-tile {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover; /* Ensures image fills the area without distortion */
+            display: block;
+        }
+
+        .story-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            /* Create a legible, semi-transparent background for text */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); 
+            color: #fff;
+            padding: 20px 15px 10px;
+            transition: background 0.3s;
+        }
+
+        .story-outcome {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            /* Ensures legible overlays as requested */
+            text-shadow: 1px 1px 2px #000; 
+        }
+        .story-tile:hover {
+    transform: translateY(-5px);
+}
+
+
+        /* Footer styling */
+    .footer {
+      background:#001F54;
+      color:#fff;
+      padding:40px 0 20px;
+
+    }
+
+    .footer-content {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:3rem;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 2rem;
+
+    }
+
+    .footer-section h4 {
+      color:#FF7F32;
+      margin-bottom:1.5rem;
+      font-size:1.3rem;
+
+    }
+
+    .footer-section ul {
+      list-style:none;
+      padding:0;
+
+    }
+
+    .footer-section ul li {
+      margin-bottom:0.8rem;
+
+    }
+
+    .footer-section a {
+      color:#fff;
+      text-decoration:none;
+      transition:all 0.3s;
+
+    }
+
+    .footer-section a:hover {
+      color:#FF7F32;
+      padding-left:5px;
+
+    }
+
+    .footer-section p {
+      margin-bottom:0.8rem;
+      line-height:1.8;
+
+    }
+
+    .social-icon {
+  width: 60px;   /* Exact container size */
+  height: 60px;
+}
+
+.social-icon img {
+  width: 60px !important;    /* Force exact size */
+  height: 60px !important;   /* Override any conflicts */
+  object-fit: cover;         /* Fill circle perfectly */
+  border-radius: 50%;        /* Circular shape */
+}
+
+social-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.social-icon:hover {
+  transform: scale(1.15);  /* Just grows 15% larger */
+}
+
+
+    .footer-bottom {
+      border-top:1px solid #333;
+      margin-top:2rem;
+      padding-top:1.5rem;
+      text-align:center;
+
+    }
+     /* Dropdown menu styling - UPDATED */
+.navbar .dropdown-menu {
+    background: #001F54 !important; /* Force blue background */
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+    margin-top: 0.5rem !important;
+    padding: 0.5rem 0 !important;
+}
+
+.navbar .dropdown-item {
+    color: #fff !important;
+    padding: 0.7rem 1.5rem !important;
+    transition: all 0.3s !important;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    background: #FF7F32 !important;
+    color: #fff !important;
+}
+
+.navbar .dropdown-item.disabled {
+    color: rgba(255,255,255,0.4) !important;
+    cursor: not-allowed !important;
+}
+
+.navbar .dropdown-divider {
+    border-color: rgba(255,255,255,0.2) !important;
+    margin: 0.5rem 0 !important;
+}
+
+    .event-card.smooth-transition {
+
+      transition:all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    }
+
+        /* Responsive Adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .participation-steps {
+                flex-direction: column; /* Steps stack vertically */
+            }
+
+            .step-card {
+                flex: 1 1 100%;
+            }
+
+            .stories-grid {
+                grid-template-columns: 1fr; /* Single column for stories */
+            }
+        }
+    </style>
+    </head>
+<body>
+<!-- NAVIGATION -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../home.html">
+        <img src="../assets/images/Logo.png"style="height:80px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="../home.html">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+            <li><a class="dropdown-item" href="../academic event.html">Academic Events</a></li>
+            <li><a class="dropdown-item" href="../non academic event.html">Non-Academic Events</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+          </ul>
+        </li>
+          <li class="nav-item"><a class="nav-link" href="../updates.html">Updates</a></li>
+        <li class="nav-item"><a class="nav-link" href="../about us.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contact us.html">Contact Us</a></li>
+        </ul>
+        <form class="position-relative" style="width:240px; margin-left:30px;">
+          <input class="search-bar" type="search" placeholder="Search..." aria-label="Search" style="width:100%;padding-right:48px;">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg height="22" width="22" viewBox="0 0 24 24" fill="#fff"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16.6" y2="16.6" stroke="#fff" stroke-width="2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+    <header class="page-header">
+        <h1>Join the Community</h1>
+        <h2>Encourage participation, club engagement, and recurring attendance; communicate benefits to students and societies.</h2>
+    </header>
+
+    <main>
+
+        <section class="section-benefits">
+            <h2>Why Get Involved?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Networking</h3>
+                    <p>Connect with peers, alumni, and potential mentors.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Skills</h3>
+                    <p>Develop practical abilities for your future career.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-users-gear"></i>
+                    <h3>Leadership</h3>
+                    <p>Gain experience managing projects and leading teams.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-magnifying-glass-location"></i>
+                    <h3>Discovery</h3>
+                    <p>Explore new interests, hobbies, and career paths.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Belonging</h3>
+                    <p>Find your group and build a supportive campus family.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Updates</h3>
+                    <p>Stay informed on key society news and events.</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr>
+
+        <section class="section-participate">
+            <h2>How to Participate</h2>
+            <div class="participation-steps">
+                
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <h3>Find Events</h3>
+                    <p>Browse our full grid of events happening this semester.</p>
+                    <a href="events-grid.html" class="step-link">See Events Grid <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <h3>Save Dates</h3>
+                    <p>Add events you like directly to your personal calendar.</p>
+                    <a href="calendar.html" class="step-link">View Calendar <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <h3>Attend</h3>
+                    <p>Show up, get involved, and meet new people!</p>
+                    <i class="fas fa-check-circle step-icon-large"></i>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <h3>Share Feedback</h3>
+                    <p>Tell us what you loved and what we can improve.</p>
+                    <i class="fas fa-comment-dots step-icon-large"></i>
+                </div>
+
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="section-stories">
+            <h2>Stories From Campus</h2>
+            <div class="stories-grid">
+                
+                <div class="story-tile">
+                    <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/554463527_790463067172068_4316447545164248972_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeG6tD5C5tTUQZ7VwEiqyN2Kgv6qTU2QN9iC_qpNTZA32IZzImN--w05I_SqkXOYObxy13NzI7kVC0FELwgUr97H&_nc_ohc=ewRwL2PaduYQ7kNvwH0ezJy&_nc_oc=AdmbP7F0BxrRbGBtDPkMlo7l75Pdv5BhGxgW2NDxjlPd1g7o5VckuTvHlR7hmA1W0AY&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=RPYQZ6agxyAi4h10rG0u-w&oh=00_AffMp-EDE7KP6LzGNPcrGQ2Gz_n8LSioWRpLw4R7l3O19g&oe=68FBE03B" alt="Students collaborating at an event" class="story-image">
+                    <div class="story-overlay">
+                        <p class="story-outcome">"I found my co-founder for a new campus startup."</p>
+                    </div>
+                </div>
+
+                <div class="story-tile">
+                    <img src="https://one.kdu.ac.lk/images/img_programmes/2025/May/26/20250526092533.jpg" alt="Students laughing together" class="story-image">
+                    <div class="story-overlay">
+                        <p class="story-outcome">"It made me feel like I truly belong at this university."</p>
+                    </div>
+                </div>
+
+                <div class="story-tile">
+                    <img src="https://kdu.ac.lk/wp-content/uploads/2025/05/DS.jpg" alt="Student giving a presentation" class="story-image">
+                    <div class="story-overlay">
+                        <p class="story-outcome">"I secured a leadership role in my favorite society."</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+ <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../home.html">Home</a></li>
+          <li><a href="../non academic event.html">Events</a></li>
+          <li><a href="../about us.html">About Us</a></li>
+          <li><a href="../contact us.html">Contact Us</a></li>
+          <li><a href="../request event process pages\organizer-login.html">Request 
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p>📍 Kandawala Road, Ratmalana,<br>Mount Lavinia 10390</p>
+        <p>✉️ info@events.kdu.ac.lk</p>
+        <p>📞 +94 11 255 3000</p>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+        <a href="https://facebook.com" class="social-icon" target="_blank">
+          <img src="../assets/images/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://youtube.com" class="social-icon" target="_blank">
+          <img src="../assets/images/youtube.png" alt="YouTube">
+        </a>
+        <a href="https://instagram.com" class="social-icon" target="_blank">
+          <img src="../assets/images/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://wa.me/1234567890" class="social-icon" target="_blank">
+          <img src="../assets/images/whatsapp.png" alt="WhatsApp">
+        </a>
+      </div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KDU Events. All rights reserved.</p>
+    </div>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</body>
+</html>

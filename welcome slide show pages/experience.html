@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience University Life</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* --- Branding and Layout Styles --- */
+        :root {
+            --color-primary-navy: #002d62; /* Dark Navy Blue */
+            --color-secondary-blue: #007bff; /* Secondary Blue */
+            --color-accent-orange: #ff6600; /* Orange Accent */
+            --color-text-dark: #212529;
+            --color-text-light: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            color: var(--color-text-dark);
+            background-color: #f4f4f9;
+        }
+
+    .navbar {
+      background:#001F54;
+      height:80px;
+      margin:20px;
+      box-shadow:0 2px 4px rgba(0,0,0,0.6);
+      border-radius:16px;
+      padding:0.5rem 2rem;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+
+    }
+
+    .navbar-brand img {
+      height:60px;
+      width:auto;
+      transition:transform 0.3s;
+
+    }
+
+    .navbar-brand img:hover {
+      transform:scale(1.05);
+
+    }
+
+    .navbar-toggler {
+      border:none;
+      font-size:1.25rem;
+      color:#fff;
+
+    }
+
+    .nav-link {
+      color:#fff !important;
+      font-weight:500;
+      font-size:1rem;
+      position:relative;
+      padding:0.5rem 1rem;
+      transition:color 0.3s;
+
+    }
+
+    .nav-link:hover,.nav-link.active {
+      color:#FF7F32 !important;
+
+    }
+
+    @media (min-width:992px) {
+      .nav-link::before {
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:0;
+      height:2px;
+      background:#FF7F32;
+      transition:width 0.3s;
+
+    }
+
+    .nav-link:hover::before {
+      width:80%;
+
+    }
+
+    }
+
+    .search-bar {
+      background:#FF7F32;
+      border-radius:25px;
+      border:none;
+      padding:0.5rem 1rem;
+      width:210px;
+      color:#fff;
+      outline:none;
+      transition:all 0.3s;
+
+    }
+
+    .search-bar::placeholder {
+      color:rgba(255,255,255,.8);
+
+    }
+
+    .search-bar:focus {
+      width:250px;
+      background:#e56a1f;
+
+    }
+
+    .search-btn {
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-60%);
+      background:transparent;
+      border:none;
+      color:#fff;
+      font-size:21px;
+      cursor:pointer;
+
+    }
+
+        /* Main Content Styling */
+        .hero-section {
+            background-color: var(--color-primary-navy);
+            color: var(--color-text-light);
+            padding: 150px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            border-bottom: 3px solid var(--color-accent-orange);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* --- Mosaic Gallery Styling --- */
+        #mosaic-gallery .gallery-item {
+            padding: 5px; /* Spacing between grid items */
+        }
+
+        .gallery-card {
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            /* Enforce uniform aspect ratio (e.g., 4:3 or 16:9). Here we use padding-top for aspect ratio lock. */
+            height: 250px; 
+            object-fit: cover;
+            border-radius: var(--border-radius);
+        }
+
+        /* --- Themed Spotlights Styling --- */
+        .theme-card {
+            background-color: var(--color-text-light);
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            transition: border-color 0.3s;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .theme-card h3 {
+            color: var(--color-primary-navy);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .theme-card .btn-outline-primary {
+            color: var(--color-primary-navy);
+            border-color: var(--color-primary-navy);
+            margin-top: auto; /* Push button to the bottom */
+            transition: all 0.3s;
+        }
+        
+        .theme-card .btn-outline-primary:hover {
+            background-color: var(--color-primary-navy);
+            color: var(--color-text-light);
+        }
+            /* Dropdown menu styling */
+    .dropdown-menu {
+
+  background:#001F54;
+
+  border:none;
+
+  border-radius:10px;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+
+  margin-top:0.5rem;
+
+    }
+
+.dropdown-item {
+
+  color:#fff;
+
+  padding:0.7rem 1.5rem;
+
+  transition:all 0.3s;
+
+    }
+
+.dropdown-item:hover {
+
+  background:#FF7F32;
+
+  color:#fff;
+
+    }
+
+.dropdown-item.disabled {
+
+  color:rgba(255,255,255,0.4);
+
+  cursor:not-allowed;
+
+    }
+
+.dropdown-divider {
+
+  border-color:rgba(255,255,255,0.2);
+
+    }
+
+    .event-card.smooth-transition {
+
+      transition:all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    }
+
+        /* --- Make it Your Own (Micro-CTAs) Styling --- */
+        .micro-cta-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: var(--border-radius);
+            background-color: #eaf6ff; /* Lightest blue for background */
+            transition: background-color 0.3s;
+        }
+
+        .micro-cta-card:hover {
+            background-color: #d1e8ff;
+        }
+
+        .micro-cta-card h4 {
+            color: var(--color-secondary-blue);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .micro-cta-icon {
+            font-size: 3rem;
+            color: var(--color-accent-orange);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+    .footer {
+      background:#001F54;
+      color:#fff;
+      padding:40px 0 20px;
+
+    }
+
+    .footer-content {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:3rem;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 2rem;
+
+    }
+
+    .footer-section h4 {
+      color:#FF7F32;
+      margin-bottom:1.5rem;
+      font-size:1.3rem;
+
+    }
+
+    .footer-section ul {
+      list-style:none;
+      padding:0;
+
+    }
+
+    .footer-section ul li {
+      margin-bottom:0.8rem;
+
+    }
+
+    .footer-section a {
+      color:#fff;
+      text-decoration:none;
+      transition:all 0.3s;
+
+    }
+
+    .footer-section a:hover {
+      color:#FF7F32;
+      padding-left:5px;
+
+    }
+
+    .footer-section p {
+      margin-bottom:0.8rem;
+      line-height:1.8;
+
+    }
+
+    .social-icon {
+  width: 60px;   /* Exact container size */
+  height: 60px;
+}
+
+.social-icon img {
+  width: 60px !important;    /* Force exact size */
+  height: 60px !important;   /* Override any conflicts */
+  object-fit: cover;         /* Fill circle perfectly */
+  border-radius: 50%;        /* Circular shape */
+}
+
+social-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.social-icon:hover {
+  transform: scale(1.15);  /* Just grows 15% larger */
+}
+
+
+    .footer-bottom {
+      border-top:1px solid #333;
+      margin-top:2rem;
+      padding-top:1.5rem;
+      text-align:center;
+
+    }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../home.html">
+        <img src="../assets/images/Logo.png"style="height:80px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="../home.html">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+            <li><a class="dropdown-item" href="../academic event.html">Academic Events</a></li>
+            <li><a class="dropdown-item" href="../non academic event.html">Non-Academic Events</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+            <li><a class="dropdown-item disabled" href="#">Coming Soon</a></li>
+          </ul>
+        </li>
+          <li class="nav-item"><a class="nav-link" href="../updates.html">Updates</a></li>
+        <li class="nav-item"><a class="nav-link" href="../about us.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contact us.html">Contact Us</a></li>
+        </ul>
+        <form class="position-relative" style="width:240px; margin-left:30px;">
+          <input class="search-bar" type="search" placeholder="Search..." aria-label="Search" style="width:100%;padding-right:48px;">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg height="22" width="22" viewBox="0 0 24 24" fill="#fff"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16.6" y2="16.6" stroke="#fff" stroke-width="2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+    <main>
+        <div class="hero-section">
+            <div class="container text-center">
+                <h1 class="text-light">Experience University Life</h1>
+                <p class="lead">Dive into the dynamic, diverse world of campus life beyond the classroom. Find your passion, build friendships, and make memories that last a lifetime.</p>
+                <a href="#mosaic-gallery" class="btn btn-lg btn-warning mt-3">Explore the Vibe</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <section id="mosaic-gallery" class="mb-5">
+                <h2 class="text-center mb-4 text-primary" style="font-weight: 600;">The University Vibe in Photos 📸</h2>
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-3">
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://i.ytimg.com/vi/saB2mDjxCrE/oar2.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4qpAxMIARUAAAAAJQAAyEI9AICiQ3gB&rs=AOn4CLANyIUvGhy1ayDnbMbEw5qaCXoCHg class="img-fluid lazy-load" alt="Students performing in a talent show (Talento)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://tse2.mm.bing.net/th/id/OIP.lZnpCa5wn5-0QAIf1fi2eQAAAA?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" class="img-fluid lazy-load" alt="Students celebrating Pongal festival" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://tse3.mm.bing.net/th/id/OIP.z4yKhxRtcFvUcaTfS9_8qAHaFl?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" class="img-fluid lazy-load" alt="Crowd at a music festival (Rota Fiesta)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/485301603_1161112745714546_1115245251821069877_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEEeawaU6Lmvn45-sTH88Bz3JHY4z6RmMjckdjjPpGYyACuAszM2TdBm6vqqf4tMQwxvHIg_2b6I6BPewEcv7Ll&_nc_ohc=iXYx_xXCesAQ7kNvwE2otOv&_nc_oc=AdkIgb7shs6zWtBx2SJelpLh8yUwtYtWzhP3tMCPZBcNeOpIXNDK0Iiho3NeS1erJww&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=Uj-qmvypcRGea1Zs69u8zA&oh=00_Afe1OLGVcGD5OwCKqT2rRishbIJq8qQM0F0azTTw0sxZ0g&oe=68FBE42B" class="img-fluid lazy-load" alt="Students competing in a sports event" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t51.75761-15/488282763_18091678213603952_2373011585002446980_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeF7YJiSt_Fp0OzmSfKm5ukexg_cn6-Ns5HGD9yfr42zkbWlL39P1tW8r6hZUUAOn8hXucZuSPqQ3XdTgnz_bKve&_nc_ohc=zTbXM2C-SRIQ7kNvwEU7D_I&_nc_oc=Adlgpap58sQqv3YxQj27InXAr1y7jTLILQDitQo4tRCnBSMnZ83TFyGTVLRubIccZYE&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=qwxeBZ1tWwyRCJNpqMbocg&oh=00_Afd3jcKrVpDBB_JpqS1MjYPPyS-_AcxaIKI1OrWgzTyvGw&oe=68FD0C31" class="img-fluid lazy-load" alt="Students celebrating New Year's Eve" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/547259130_122169016538465683_8151184786809288567_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyxfXZE_V0rif7HtkCIp5DjKRanU81XmGMpFqdTzVeYd6xX8vTVt7wKc52G6AVtK405_QLV8ezytFSokWwig-I&_nc_ohc=BkgE2eqbkjQQ7kNvwE2VcUM&_nc_oc=AdnBia7myeW_q4HODDxV0nsuQvKbJc_XspbXC81kXb67LUFfMKaHAkWsWBgYU8RNzdA&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=VmjefwZnC81VTHYB3tAYqg&oh=00_AfdeIUgKq18XTWVrgOKSbHOkQustuF7mlZ-qWdXmyeneAA&oe=68FC0A10"img-fluid lazy-load" alt="Students at a leadership workshop (Ignite)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/533829687_1182052277297400_2840853081223703096_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEUq8Zyj2ECUcDX21DpWIf58iWRGXlAXifyJZEZeUBeJ8SeP8okl7I95OSWV9yxm3OzklzrSPZm8Fum9KgukvRD&_nc_ohc=ZfXnISuQi78Q7kNvwHbFiRH&_nc_oc=Adlgq41NcZi3bg92gqPwlG-kjjT1gH54GhtwgqLzMBa9lMSPMj93n1w0YtMyKIlnBtI&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=Rx-WK5ejAFbqUUZXOhQBkA&oh=00_AffNUjINqjQB3o_jSPlU56IaxQ9k6We_ILi9PqlIKJGxLQ&oe=68FD1662" class="img-fluid lazy-load" alt="Students on a cultural trip (Yeh Jawaani)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/492347340_2163573164160152_1882672852578792592_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFbgj00CyVhn9POMlJqvmaRUO5sayEaeilQ7mxrIRp6KdZ_RySYKl0cTEWfJPg7bN-b5ToiAwTRHTflwhncMuCw&_nc_ohc=u2y9rWxtLAQQ7kNvwEqhHGj&_nc_oc=Adn58H49Zv2pLf6VJW7blnAEppwJ1sM3yCRdudtoV7bRUYa_l3ozhRsfklSBs3ZbPcM&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=JqfCpvJi1btb6LDETssECg&oh=00_AffhhjwYuquJ8j-r8X8k4qpRXetNm6krGDLdrKAQstumtA&oe=68FD07A4" class="img-fluid lazy-load" alt="Students observing a religious ceremony (Afur)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/554463527_790463067172068_4316447545164248972_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeG6tD5C5tTUQZ7VwEiqyN2Kgv6qTU2QN9iC_qpNTZA32IZzImN--w05I_SqkXOYObxy13NzI7kVC0FELwgUr97H&_nc_ohc=ewRwL2PaduYQ7kNvwH0ezJy&_nc_oc=AdmbP7F0BxrRbGBtDPkMlo7l75Pdv5BhGxgW2NDxjlPd1g7o5VckuTvHlR7hmA1W0AY&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&_nc_gid=RPYQZ6agxyAi4h10rG0u-w&oh=00_AffMp-EDE7KP6LzGNPcrGQ2Gz_n8LSioWRpLw4R7l3O19g&oe=68FBE03B" class="img-fluid lazy-load" alt="Crowd watching a play (Mathaka)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://tse3.mm.bing.net/th/id/OIP.gF4oAgQlhAMCFX3NvyzI9AHaJH?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" class="img-fluid lazy-load" alt="Students at a traditional dance performance (Ananthe)" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://kdu.ac.lk/wp-content/uploads/2025/10/IMG-20251008-WA0139.webp" class="img-fluid lazy-load" alt="Students collaborating on a project" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col gallery-item">
+                        <div class="gallery-card">
+                            <img src="https://tse1.mm.bing.net/th/id/OIP.ONHBClq9MNac2pjc9t91kAHaEo?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" class="img-fluid lazy-load" alt="Students at a graduation ceremony" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            ---
+
+            <section id="themed-spotlights" class="mb-5">
+                <h2 class="text-center mb-5 text-primary">Discover Your Community Themes</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="theme-card">
+                            <h3>Culture & Tradition 🎭</h3>
+                            <p>Celebrate the rich tapestry of backgrounds that make our campus vibrant. From heritage festivals and traditional performances to global food fairs, find a place to share and learn.</p>
+                            <a href="non-academic-event.html#culture" class="btn btn-outline-primary">See Cultural Events &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="theme-card">
+                            <h3>Sports & Adventure 🏆</h3>
+                            <p>Whether you're a competitive athlete or just looking for a fun run, our sports events promote fitness, teamwork, and spirited rivalry. Join a league or cheer from the sidelines!</p>
+                            <a href="cultural-events.html" class="btn btn-outline-primary">See Sports Events &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="theme-card">
+                            <h3>Music, Arts & Creativity 🎨</h3>
+                            <p>Unleash your creative side through workshops, live concerts, drama productions, and art exhibitions. These events showcase the immense talent within our student body.</p>
+                            <a href="non-academic-event.html#arts" class="btn btn-outline-primary">See Arts Events &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            ---
+
+            <section id="make-it-your-own" class="mb-5">
+                <h2 class="text-center mb-5 text-primary">Make Your Experience Unforgettable</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="micro-cta-card">
+                            <span class="micro-cta-icon">🎉</span>
+                            <h4>First-Time Attendee?</h4>
+                            <p>Check out our guide for newcomers and discover events perfect for meeting people and getting involved.</p>
+                            <a href="community.html" class="btn btn-sm btn-info text-light">Newbie Guide</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="micro-cta-card">
+                            <span class="micro-cta-icon">🤝</span>
+                            <h4>Become a Volunteer</h4>
+                            <p>Help bring events to life, gain valuable experience, and earn service hours. Your time makes a difference!</p>
+                            <a href="organize.html" class="btn btn-sm btn-info text-light">Start Volunteering</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="micro-cta-card">
+                            <span class="micro-cta-icon">📸</span>
+                            <h4>Capture the Moment</h4>
+                            <p>Join the content creation team! We're always looking for talented photographers and videographers.</p>
+                            <a href="contact.html" class="btn btn-sm btn-info text-light">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../home.html">Home</a></li>
+          <li><a href="../non academic event.html">Events</a></li>
+          <li><a href="../about us.html">About Us</a></li>
+          <li><a href="../contact us.html">Contact Us</a></li>
+          <li><a href="../request event process pages\organizer-login.html">Request Event Permission</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p>📍 Kandawala Road, Ratmalana,<br>Mount Lavinia 10390</p>
+        <p>✉️ info@events.kdu.ac.lk</p>
+        <p>📞 +94 11 255 3000</p>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+        <a href="https://facebook.com" class="social-icon" target="_blank">
+          <img src="../assets/images/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://youtube.com" class="social-icon" target="_blank">
+          <img src="../assets/images/youtube.png" alt="YouTube">
+        </a>
+        <a href="https://instagram.com" class="social-icon" target="_blank">
+          <img src="../assets/images/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://wa.me/1234567890" class="social-icon" target="_blank">
+          <img src="../assets/images/whatsapp.png" alt="WhatsApp">
+        </a>
+      </div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KDU Events. All rights reserved.</p>
+    </div>
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        // Simple script for lazy loading (Bootstrap already handles some aspects with its utility classes)
+        document.addEventListener('DOMContentLoaded', function() {
+            var lazyloadImages = document.querySelectorAll(".lazy-load");    
+            var imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var image = entry.target;
+                        // For a real implementation, you'd swap data-src to src here.
+                        // Since we're using placeholder images, this ensures the attribute is set.
+                        image.src = image.getAttribute('src'); 
+                        image.classList.remove("lazy-load");
+                        imageObserver.unobserve(image);
+                    }
+                });
+            });
+
+            lazyloadImages.forEach(function(image) {
+                imageObserver.observe(image);
+            });
+        });
+    </script>
+</body>
+</html>
