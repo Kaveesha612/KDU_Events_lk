@@ -40,8 +40,8 @@ Optimized for desktops, tablets, and mobile devices<br>
 
 ## 🔮 Future Enhancements <br> 
 <br> 
-The platform is designed with scalability in mind and can be extended with:<br> 
-<br> 
+The platform is designed with scalability in mind and can be extended with: <br> 
+
 - 🔐 User authentication system<br> 
 - 🎟️ E-ticket booking with QR code generation<br> 
 - 📊 Organizer dashboards with analytics<br> 
