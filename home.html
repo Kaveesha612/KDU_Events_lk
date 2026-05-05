@@ -1,0 +1,2168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KDU Events - University Event Management Platform</title>
+  <!-- Bootstrap 5.3.0 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+
+    }
+
+    html {
+      scroll-behavior:smooth;
+
+    }
+
+    body {
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      line-height:1.6;
+      color:#333;
+      overflow-x:hidden;
+
+    }
+
+    /*navbar*/
+.navbar {
+      background:#001F54;
+      height:80px;
+      margin:20px;
+      box-shadow:0 2px 4px rgba(0,0,0,0.6);
+      border-radius:16px;
+      padding:0.5rem 2rem;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+
+    }
+
+.navbar-brand img {
+      height: 40px;
+      width:auto;
+      transition:transform 0.3s;
+
+    }
+
+    .navbar-brand img:hover {
+      transform:scale(1.05);
+
+    }
+
+    .navbar-toggler {
+      border:none;
+      font-size:1.25rem;
+      color:#fff;
+
+    }
+
+    .nav-link {
+      color:#fff !important;
+      font-weight:500;
+      font-size:1rem;
+      position:relative;
+      padding:0.5rem 1rem;
+      transition:color 0.3s;
+
+    }
+
+    .nav-link:hover,.nav-link.active {
+      color:#FF7F32 !important;
+
+    }
+
+    @media (min-width:992px) {
+      .nav-link::before {
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:0;
+      height:2px;
+      background:#FF7F32;
+      transition:width 0.3s;
+
+    }
+
+    .nav-link:hover::before {
+      width:80%;
+
+    }
+
+    }
+
+    .search-bar {
+      background:#FF7F32;
+      border-radius:25px;
+      border:none;
+      padding:0.5rem 1rem;
+      width:210px;
+      color:#fff;
+      outline:none;
+      transition:all 0.3s;
+
+    }
+
+    .search-bar::placeholder {
+      color:rgba(255,255,255,.8);
+
+    }
+
+    .search-bar:focus {
+      width:250px;
+      background:#e56a1f;
+
+    }
+
+    .search-btn {
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-60%);
+      background:transparent;
+      border:none;
+      color:#fff;
+      font-size:21px;
+      cursor:pointer;
+
+    }
+   /*dropdown*/
+
+/* CSS-only dropdown on hover for desktop */
+@media (min-width: 992px) {
+  /* Positioning context for the dropdown */
+  .navbar .nav-item.dropdown {
+    position: relative;
+  }
+
+  /* Detach menu from flow and prepare for transition */
+  .navbar .dropdown-menu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: block; /* keep for transitions */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 1050;
+    pointer-events: none; /* avoid interacting when hidden */
+  }
+
+  /* Show on hover, keep open on focus-within (keyboard) or when Bootstrap adds .show */
+  .navbar .nav-item.dropdown:hover > .dropdown-menu,
+  .navbar .nav-item.dropdown:focus-within > .dropdown-menu,
+  .navbar .dropdown-menu.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* Dropdown color theme - override Bootstrap defaults */
+.navbar .dropdown-menu {
+  background-color: #001F54; /* dark navy to match navbar */
+  border: none;
+  min-width: 12rem;
+  padding: 0.25rem 0;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+  color: #ffffff; /* white text */
+  padding: 0.5rem 1rem;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus {
+  background-color: #FF7F32; /* fiesta orange on hover */
+  color: #081226; /* dark text on orange */
+}
+
+/* small separator style if needed */
+.navbar .dropdown-divider {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/*end of dropdown*/
+/*end of navbar*/
+
+    .slideshow-section {
+      margin-top:0;
+      padding-top:120px;
+      min-height:100vh;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#001F54 0%,#4A90E2 50%,#87CEEB 100%);
+
+    }
+
+    .slideshow-container {
+      position:relative;
+      width:100%;
+      height:calc(100vh - 120px);
+      overflow:hidden;
+
+    }
+
+    .slide {
+      display:none;
+      width:100%;
+      height:100%;
+      align-items:center;
+      padding:3rem 5%;
+      animation:fadeIn 0.8s;
+
+    }
+
+    .slide.active {
+      display:flex;
+
+    }
+
+    @keyframes fadeIn {
+      from {
+      opacity:0;
+      transform:translateY(20px);
+
+    }
+
+    to {
+      opacity:1;
+      transform:translateY(0);
+
+    }
+
+    }
+
+    .slide-content {
+      flex:1;
+      color:#fff;
+      padding-right:3rem;
+
+    }
+
+    .slide-content h1 {
+      font-family:'Impact',sans-serif;
+      font-size:12rem;
+      color:#FF7F32;
+      line-height:1;
+      margin-bottom:0;
+      text-shadow:2px 2px 4px rgba(0,0,0,0.3);
+
+    }
+
+    .slide-content h2 {
+      font-family:'Impact',sans-serif;
+      font-size:6rem;
+      color:#fff;
+      line-height:1;
+      margin-bottom:1.5rem;
+      text-shadow:2px 2px 4px rgba(0,0,0,0.3);
+
+    }
+
+    .slide-content h3 {
+      font-size:3.5rem;
+      color:#FF7F32;
+      margin-bottom:1rem;
+      font-weight:bold;
+
+    }
+
+    .slide-content p {
+      font-size:1.2rem;
+      line-height:1.8;
+      margin-bottom:2rem;
+      max-width:600px;
+
+    }
+
+    .slide-btn {
+      background:#FF7F32;
+      color:#fff;
+      padding:15px 40px;
+      border-radius:25px;
+      text-decoration:none;
+      font-size:1.1rem;
+      font-weight:bold;
+      display:inline-block;
+      transition:all 0.3s;
+      box-shadow:0 5px 15px rgba(255,127,50,0.3);
+
+    }
+
+    .slide-btn:hover {
+      background:#e56a1f;
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(255,127,50,0.4);
+
+    }
+
+    .slide-image {
+      flex:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+    }
+
+    .slide-image img {
+      max-width:100%;
+      height:auto;
+      border-radius:15px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      max-height:500px;
+      object-fit:cover;
+
+    }
+
+    .slide-dots {
+      position:absolute;
+      bottom:30px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:15px;
+      z-index:10;
+
+    }
+
+    .dot {
+      width:15px;
+      height:15px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.5);
+      cursor:pointer;
+      transition:all 0.3s;
+
+    }
+
+    .dot.active {
+      background:#FF7F32;
+      transform:scale(1.2);
+
+    }
+
+    .dot:hover {
+      background:rgba(255,127,50,0.8);
+
+    }
+
+    .trending-section {
+      background:linear-gradient(135deg,#4A90E2 0%,#87CEEB 100%);
+      padding:80px 0;
+
+    }
+
+    .section-title {
+      text-align:center;
+      font-size:2.5rem;
+      color:#001F54;
+      font-weight:bold;
+      margin-bottom:6rem;
+
+    }
+
+    .slider-container {
+      position:relative;
+      max-width:1400px;
+      margin:0 auto;
+      padding:0 80px;
+
+    }
+
+    .events-slider {
+      display:flex;
+      gap:30px;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      min-height:450px;
+      overflow:visible;
+
+    }
+
+    .event-card {
+
+      background:#fff;
+
+      border-radius:15px;
+
+      padding:0;
+
+      min-width:320px;
+
+      max-width:320px;
+
+      min-height:520px;
+
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+      transition:all 0.8s ease-in-out;
+
+      opacity:0.8;
+
+      transform:scale(0.75);
+
+      cursor:pointer;
+
+      overflow:hidden;
+
+    }
+
+    .event-poster {
+
+      width:100%;
+
+      height:300px;
+
+      object-fit:cover;
+
+      border-radius:15px 15px 0 0;
+
+    }
+
+    .event-content {
+
+      padding:1.5rem;
+
+    }
+
+    .event-card.center {
+      transform:scale(1.1) translateY(-20px);
+      opacity:1;
+      box-shadow:0 20px 40px rgba(0,0,0,0.2);
+      z-index:10;
+
+    }
+
+    .event-card.center:hover {
+      transform:scale(1.15) translateY(-25px);
+
+    }
+
+    .event-card:not(.center):hover {
+      transform:scale(0.95) translateY(-5px);
+
+    }
+
+    .event-card h3 {
+      color:#001F54;
+      font-size:1.5rem;
+      margin-bottom:1rem;
+      font-weight:bold;
+
+    }
+
+    .event-date {
+      color:#666;
+      font-size:1rem;
+      margin-bottom:1.5rem;
+      display:flex;
+      align-items:center;
+      gap:8px;
+
+    }
+
+    .event-date::before {
+      content:'📅';
+      font-size:1.2rem;
+
+    }
+
+    .more-btn {
+      background:#FF7F32;
+      color:#fff;
+      border:none;
+      padding:10px 25px;
+      border-radius:20px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:all 0.3s;
+      width:100%;
+
+    }
+
+    .more-btn:hover {
+      background:#e56a1f;
+      transform:translateY(-2px);
+      box-shadow:0 5px 15px rgba(255,127,50,0.3);
+
+    }
+
+    .slider-arrow {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:#FF7F32;
+      border:none;
+      color:#fff;
+      font-size:1.5rem;
+      cursor:pointer;
+      transition:all 0.3s;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+    }
+
+    .slider-arrow:hover {
+      background:#e56a1f;
+      transform:translateY(-50%) scale(1.1);
+
+    }
+
+    .slider-arrow.left {
+      left:10px;
+
+    }
+
+    .slider-arrow.right {
+      right:10px;
+
+    }
+
+    .event-dots {
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-top:3rem;
+
+    }
+
+    .event-dot {
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.5);
+      cursor:pointer;
+      transition:all 0.3s;
+
+    }
+
+    .event-dot.active {
+      background:#FF7F32;
+      transform:scale(1.3);
+
+    }
+
+    .calendar-section {
+      background:#f8f9fa;
+      padding:80px 0;
+
+    }
+
+    .calendar-container {
+      max-width:800px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      overflow:hidden;
+
+    }
+
+    .calendar-header {
+      background:#001F54;
+      color:#fff;
+      padding:1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:1.5rem;
+      font-size:1.5rem;
+      font-weight:bold;
+      border-radius:10px 10px 0 0;
+
+    }
+
+    .calendar-arrow {
+      background:#FF7F32;
+      border:none;
+      border-radius:50%;
+      width:38px;
+      height:38px;
+      color:#fff;
+      font-size:1.4rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background 0.3s;
+      cursor:pointer;
+
+    }
+
+    .calendar-arrow:hover {
+      background:#e56a1f;
+
+    }
+
+    .calendar-subtitle {
+
+      text-align:center;
+
+      font-size:1.2rem;
+
+      color:#666;
+
+      margin-bottom:3rem;
+
+      font-style:italic;
+
+    }
+
+    .calendar-grid {
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:1px;
+      background:#e0e0e0;
+
+    }
+
+    .calendar-day-header {
+      background:#001F54;
+      color:#fff;
+      padding:15px;
+      text-align:center;
+      font-weight:bold;
+      font-size:0.9rem;
+
+    }
+
+    .calendar-date {
+      background:#fff;
+      padding:15px;
+      text-align:center;
+      cursor:pointer;
+      transition:all 0.3s;
+      min-height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:500;
+
+    }
+
+    .calendar-date:hover {
+      background:#f0f0f0;
+
+    }
+
+    .calendar-date.today {
+      background-color:#001F54;
+      color:#fff;
+      font-weight:bold;
+
+    }
+
+    .calendar-date.selected {
+      background-color:#FF7F32;
+      color:#fff;
+      font-weight:bold;
+
+    }
+
+    .calendar-date.empty {
+      background-color:#fafafa;
+      cursor:default;
+
+    }
+
+    .calendar-date.empty:hover {
+      background-color:#fafafa;
+
+    }
+
+    .about-section {
+      background:linear-gradient(135deg,#87CEEB 0%,#4A90E2 100%);
+      padding:80px 0;
+
+    }
+
+    .about-content {
+      max-width:800px;
+      margin:0 auto;
+      text-align:center;
+      color:#fff;
+
+    }
+
+    .about-content p {
+      font-size:1.2rem;
+      line-height:1.8;
+      margin-bottom:2rem;
+
+    }
+
+    .permission-btn {
+      background:#FF7F32;
+      color:#fff;
+      padding:15px 30px;
+      border-radius:25px;
+      text-decoration:none;
+      font-size:1.1rem;
+      font-weight:bold;
+      display:inline-block;
+      transition:all 0.3s;
+      box-shadow:0 5px 15px rgba(255,127,50,0.3);
+
+    }
+
+    .permission-btn:hover {
+      background:#e56a1f;
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(255,127,50,0.4);
+
+    }
+
+    .footer {
+      background:#001F54;
+      color:#fff;
+      padding:40px 0 20px;
+
+    }
+
+    .footer-content {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:3rem;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 2rem;
+
+    }
+
+    .footer-section h4 {
+      color:#FF7F32;
+      margin-bottom:1.5rem;
+      font-size:1.3rem;
+
+    }
+
+    .footer-section ul {
+      list-style:none;
+      padding:0;
+
+    }
+
+    .footer-section ul li {
+      margin-bottom:0.8rem;
+
+    }
+
+    .footer-section a {
+      color:#fff;
+      text-decoration:none;
+      transition:all 0.3s;
+
+    }
+
+    .footer-section a:hover {
+      color:#FF7F32;
+      padding-left:5px;
+
+    }
+
+    .footer-section p {
+      margin-bottom:0.8rem;
+      line-height:1.8;
+
+    }
+
+    .social-icon {
+  width: 60px;   /* Exact container size */
+  height: 60px;
+}
+
+.social-icon img {
+  width: 60px !important;    /* Force exact size */
+  height: 60px !important;   /* Override any conflicts */
+  object-fit: cover;         /* Fill circle perfectly */
+  border-radius: 50%;        /* Circular shape */
+}
+
+social-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.social-icon:hover {
+  transform: scale(1.15);  /* Just grows 15% larger */
+}
+
+
+    .footer-bottom {
+      border-top:1px solid #333;
+      margin-top:2rem;
+      padding-top:1.5rem;
+      text-align:center;
+
+    }
+
+    @media (max-width:992px) {
+      .slide-content h1 {
+      font-size:8rem;
+
+    }
+
+    .slide-content h2 {
+      font-size:4rem;
+
+    }
+
+    .slide-content h3 {
+      font-size:2.5rem;
+
+    }
+
+    .events-slider {
+      gap:20px;
+
+    }
+
+    .slider-container {
+      padding:0 60px;
+
+    }
+
+    }
+
+    @media (max-width:768px) {
+      .navbar {
+      margin:10px;
+      height:auto;
+      padding:0.5rem 1rem;
+
+    }
+
+    .slideshow-section {
+      padding-top:100px;
+
+    }
+
+    .slide {
+      flex-direction:column;
+      padding:2rem;
+
+    }
+
+    .slide-content {
+      padding-right:0;
+      text-align:center;
+      margin-bottom:2rem;
+
+    }
+
+    .slide-content h1 {
+      font-size:4rem;
+
+    }
+
+    .slide-content h2 {
+      font-size:2.5rem;
+
+    }
+
+    .slide-content h3 {
+      font-size:2rem;
+
+    }
+
+    .slide-content p {
+      font-size:1rem;
+
+    }
+
+    .events-slider {
+      flex-direction:column;
+      gap:20px;
+
+    }
+
+    .event-card,.event-card.center {
+      transform:scale(1);
+      opacity:1;
+
+    }
+
+    .slider-container {
+      padding:0 20px;
+
+    }
+
+    .slider-arrow {
+      display:none;
+
+    }
+
+    .section-title {
+      font-size:2rem;
+
+    }
+
+    .calendar-date {
+      padding:10px;
+      min-height:50px;
+      font-size:0.9rem;
+
+    }
+
+    .search-bar {
+      width:150px;
+
+    }
+
+    .search-bar:focus {
+      width:180px;
+
+    }
+
+    }
+
+    @media (max-width:576px) {
+      .slide-content h1 {
+      font-size:3rem;
+
+    }
+
+    .slide-content h2 {
+      font-size:1.8rem;
+
+    }
+
+    .section-title {
+      font-size:1.8rem;
+
+    }
+
+    .calendar-day-header {
+      padding:10px 5px;
+      font-size:0.8rem;
+
+    }
+
+    .calendar-date {
+      padding:8px;
+      min-height:45px;
+      font-size:0.85rem;
+
+    }
+
+    }
+
+    /* Dropdown menu styling */
+    .dropdown-menu {
+
+  background:#001F54;
+
+  border:none;
+
+  border-radius:10px;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+
+  margin-top:0.5rem;
+
+    }
+
+.dropdown-item {
+
+  color:#fff;
+
+  padding:0.7rem 1.5rem;
+
+  transition:all 0.3s;
+
+    }
+
+.dropdown-item:hover {
+
+  background:#FF7F32;
+
+  color:#fff;
+
+    }
+
+.dropdown-item.disabled {
+
+  color:rgba(255,255,255,0.4);
+
+  cursor:not-allowed;
+
+    }
+
+.dropdown-divider {
+
+  border-color:rgba(255,255,255,0.2);
+
+    }
+
+    .event-card.smooth-transition {
+
+      transition:all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    }
+
+    /* Smooth side-to-center sliding animation */
+    @keyframes slideFromRightToCenter  {
+
+      0%  {
+
+        transform: translateX(350px) scale(0.75);
+
+        opacity: 0.8;
+
+    }
+
+      100%  {
+
+        transform: translateX(0) scale(1.1) translateY(-20px);
+
+        opacity: 1;
+
+    }
+
+    }
+
+    @keyframes slideFromLeftToCenter  {
+
+      0%  {
+
+        transform: translateX(-350px) scale(0.75);
+
+        opacity: 0.8;
+
+    }
+
+      100%  {
+
+        transform: translateX(0) scale(1.1) translateY(-20px);
+
+        opacity: 1;
+
+    }
+
+    }
+
+    /* Apply smooth sliding to center card */
+    .event-card.center.slide-from-right  {
+
+      animation: slideFromRightToCenter 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+    }
+
+    .event-card.center.slide-from-left  {
+
+      animation: slideFromLeftToCenter 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+    }
+
+    /* Ensure smooth transitions on event cards */
+    .event-card  {
+
+      transition: all 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+    }
+  
+
+/* ========================================
+   CALENDAR SECTION ENHANCEMENTS ONLY
+   ======================================== */
+
+.calendar-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  animation: fadeInDown 0.8s ease-out;
+  margin-bottom: 0.5rem;
+}
+
+.calendar-icon {
+  font-size: 3rem;
+  animation: bounce 2s infinite;
+  filter: drop-shadow(0 4px 8px rgba(255, 127, 50, 0.3));
+}
+
+.calendar-subtitle {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #FF7F32;
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.subtitle-icon {
+  font-size: 1.8rem;
+  animation: pointDown 1.5s ease-in-out infinite;
+}
+
+.subtitle-text {
+  background: linear-gradient(90deg, #FF7F32, #001F54, #FF7F32);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Calendar-only Animations */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pointDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+  /* ============================================================================
+       INTERACTIVE CALENDAR EVENT CARDS - STYLES
+       ============================================================================ */
+
+    /* Calendar wrapper for side-by-side layout */
+    .calendar-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calendar-container {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .calendar-container.slide-left {
+      transform: translateX(-200px);
+    }
+
+    /* Event dots on calendar dates */
+    .calendar-date {
+      position: relative;
+    }
+
+    .calendar-date.has-event {
+      cursor: pointer;
+    }
+
+    .calendar-date.has-event::after {
+      content: '●';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #FF7F32;
+      font-size: 16px;
+      animation: pulse 2s infinite;
+    }
+
+    .calendar-date.has-event:hover {
+      background: rgba(255, 127, 50, 0.15) !important;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Event Card Popup */
+    .event-card-popup {
+      position: fixed;
+      right: -500px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 450px;
+      max-height: 80vh;
+      background: linear-gradient(135deg, #4A90E2 0%, #87CEEB 100%);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .event-card-popup.show {
+      right: 50px;
+      opacity: 1;
+    }
+
+    .event-card-popup.hidden {
+      right: -500px;
+      opacity: 0;
+    }
+
+    /* Card Header */
+    .event-card-header {
+      background: #001F54;
+      color: #fff;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .event-card-header-content h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .event-count-badge {
+      display: inline-block;
+      background: #FF7F32;
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    .event-card-close {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .event-card-close:hover {
+      background: #FF7F32;
+      border-color: #FF7F32;
+      transform: rotate(90deg);
+    }
+
+    /* Card Body */
+    .event-card-body {
+      padding: 1.5rem;
+      max-height: calc(80vh - 120px);
+      overflow-y: auto;
+    }
+
+    .event-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .event-list li {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .event-list li:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .event-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .event-item-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #001F54;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .event-category-badge {
+      display: inline-block;
+      background: #FF7F32;
+      color: #fff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: normal;
+    }
+
+    .event-item-time {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .event-item-time::before {
+      content: '🕒';
+      font-size: 1rem;
+    }
+
+    .event-item-location {
+      color: #666;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .event-item-location::before {
+      content: '📍';
+      font-size: 1rem;
+    }
+
+    .event-more-btn {
+      margin-top: 0.8rem;
+      background: #001F54;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .event-more-btn:hover {
+      background: #FF7F32;
+      transform: scale(1.05);
+    }
+
+    /* Scrollbar styling for event list */
+    .event-card-body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .event-card-body::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+
+    .event-card-body::-webkit-scrollbar-thumb {
+      background: #001F54;
+      border-radius: 10px;
+    }
+
+    .event-card-body::-webkit-scrollbar-thumb:hover {
+      background: #FF7F32;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .event-card-popup {
+        width: 90%;
+        right: -100%;
+      }
+
+      .event-card-popup.show {
+        right: 5%;
+      }
+
+      .calendar-container.slide-left {
+        transform: translateX(-100px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .event-card-popup {
+        width: 95%;
+        max-height: 70vh;
+      }
+
+      .event-card-header {
+        padding: 1rem;
+      }
+
+      .event-card-header-content h3 {
+        font-size: 1.1rem;
+      }
+
+      .event-card-body {
+        padding: 1rem;
+      }
+
+      .calendar-container.slide-left {
+        transform: translateX(-50px);
+      }
+    }
+  </style>
+    
+</head>
+<body>
+
+   <!--navbar-->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html">
+        <img src="Images/Logo.png"style="height:60px;">
+      </a>
+    
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+    <!--dropdown-->
+         <li class="nav-item dropdown">
+           <a class="nav-link mx-lg-2 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Events </a>
+             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <li><a class="dropdown-item" href="academic event.html">Academic</a></li>
+             <li><a class="dropdown-item" href="non academic event.html">Non Academic</a></li>
+             </ul>
+         </li>
+     <!--end of dropdown-->  
+
+          <li class="nav-item"><a class="nav-link" href="updates.html">Updates</a></li>
+        <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactus.html">Contact Us</a></li>
+        </ul>
+        <form class="position-relative" style="width:240px; margin-left:30px;">
+          <input class="search-bar" type="search" placeholder="Search..." aria-label="Search" style="width:100%;padding-right:48px;">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg height="22" width="22" viewBox="0 0 24 24" fill="#fff"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16.6" y2="16.6" stroke="#fff" stroke-width="2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+    <!--end of navbar-->
+
+
+  <!-- WELCOME SLIDESHOW SECTION -->
+  <section class="slideshow-section">
+    <div class="slideshow-container">
+      <div class="slide active">
+        <div class="slide-content">
+          <h1>KDU</h1>
+          <h2>EVENTS.LK</h2>
+          <p>A platform for university students and organizers to manage campus events.</p>
+          <a href="academic event.html" class="slide-btn">View Events</a>
+        </div>
+        <div class="slide-image">
+          <img src="https://kdu.ac.lk/wp-content/uploads/2023/06/kdu-face.webp" alt="KDU Campus">
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <h3>Discover</h3>
+          <h2>CAMPUS EVENTS</h2>
+          <p>Stay updated with the latest events happening in your university.</p>
+          <a href="non academic event.html" class="slide-btn">Explore Now</a>
+        </div>
+        <div class="slide-image">
+          <img src="assets/images/p1.jpg" alt="Campus Events">
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <h3>Join</h3>
+          <h2>THE COMMUNITY</h2>
+          <p>Connect with fellow students and participate in exciting campus activities.</p>
+          <a href="non academic event.html" class="slide-btn">Get Started</a>
+        </div>
+        <div class="slide-image">
+          <img src="https://kdu.ac.lk/wp-content/uploads/2023/06/kdu-face.webp" alt="Community">
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <h3>Organize</h3>
+          <h2>YOUR EVENTS</h2>
+          <p>Easy-to-use platform for event organizers to create and manage events.</p>
+          <a href="non academic event.html" class="slide-btn">Start Organizing</a>
+        </div>
+        <div class="slide-image">
+          <img src="https://kdu.ac.lk/wp-content/uploads/2023/06/kdu-face.webp" alt="Organize Events">
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <h3>Experience</h3>
+          <h2>UNIVERSITY LIFE</h2>
+          <p>Make the most of your university experience with engaging events and activities.</p>
+          <a href="non academic event.html" class="slide-btn">Join Us</a>
+        </div>
+        <div class="slide-image">
+          <img src="https://kdu.ac.lk/wp-content/uploads/2023/06/kdu-face.webp" alt="University Life">
+        </div>
+      </div>
+      <div class="slide-dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDING EVENTS SECTION -->
+  <section class="trending-section">
+    <h2 class="section-title">TRENDING EVENTS</h2>
+    <div class="slider-container">
+      <button class="slider-arrow left" onclick="slideEvents(-1)">❮</button>
+      <div class="events-slider" id="eventsSlider">
+  <div class="event-card">
+    <img src="assets/posters/yeh jawaani.jpg" alt="Yeh Jawaani 2025" class="event-poster">
+    <div class="event-content">
+      <h3>Yeh Jawaani 2025</h3>
+      <div class="event-date">September 01, 2025</div>
+      <button class="more-btn" a href="Yeh Jawaani.html">More</button>
+    </div>
+  </div>
+  <div class="event-card center">
+    <img src="assets/posters/mathaka.jpg" alt="Mathaka 2025" class="event-poster">
+    <div class="event-content">
+      <h3>Mathaka 2025</h3>
+      <div class="event-date">September 12, 2025</div>
+      <button class="more-btn" onclick="goToEventPage('mathaka')">More</button>
+    </div>
+  </div>
+  <div class="event-card">
+    <img src="assets/posters/ac (9).jpg" alt="IEEEXtreme-19.0" class="event-poster">
+    <div class="event-content">
+      <h3>IEEEXtreme-19.0</h3>
+      <div class="event-date">September 30, 2025</div>
+      <button class="more-btn" onclick="goToEventPage('IEEEXtreme-19.0')">More</button>
+    </div>
+  </div>
+</div>
+      <button class="slider-arrow right" onclick="slideEvents(1)">❯</button>
+    </div>
+    <div class="event-dots" id="eventDots">
+      <span class="event-dot" onclick="goToEventSlide(0)"></span>
+      <span class="event-dot active" onclick="goToEventSlide(1)"></span>
+      <span class="event-dot" onclick="goToEventSlide(2)"></span>
+      <span class="event-dot" onclick="goToEventSlide(3)"></span>
+      <span class="event-dot" onclick="goToEventSlide(4)"></span>
+    </div>
+  </section>
+
+  <!-- CALENDAR SECTION -->
+  <section class="calendar-section">
+    
+    <h2 class="section-title calendar-title">
+      <span class="calendar-icon">📅</span>
+      EVENT CALENDAR
+    </h2>
+    <p class="calendar-subtitle">
+      <span class="subtitle-icon">👆</span>
+      <span class="subtitle-text">Click the date, Find the Event!</span>
+    </p>
+    <div class="calendar-container">
+      <div class="calendar-header" style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; position: relative;">
+        <button class="calendar-arrow" id="calPrev" title="Previous Month">&#8592;</button>
+        <span id="calendarMonthLabel" style="font-size: 1.5rem; font-weight: bold; flex: 0 1 auto;"></span>
+        <button class="calendar-arrow" id="calNext" title="Next Month">&#8594;</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+  </section>
+
+
+    <!-- EVENT CARD (Hidden by default, slides in on date click) -->
+    <div id="event-card" class="event-card-popup hidden">
+      <div class="event-card-header">
+        <div class="event-card-header-content">
+          <h3 id="event-card-date">November 15, 2025</h3>
+          <span id="event-card-count" class="event-count-badge">1 Event</span>
+        </div>
+        <button class="event-card-close" id="closeEventCard" title="Close">✖</button>
+      </div>
+      <div class="event-card-body">
+        <ul id="event-list" class="event-list">
+          <!-- Events will be populated by JavaScript -->
+        </ul>
+      </div>
+    </div>
+
+
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section">
+    <div class="about-content">
+      <h2 class="section-title" style="color:#fff;">ABOUT THE SYSTEM</h2>
+      <p>The KDU EVENT.LK is designed to provide a central platform where students can easily find, register, and stay updated about upcoming university events. It also supports event organizers by offering tools to publish and manage their events in a more structured way. An important feature included is the "Request Event Permission" option, which allows organizers to conveniently apply for approval of their events through the system.</p>
+      <a href="organizer-login.html" class="permission-btn">Request Event Permission</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="academic event.html">Events</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="request event process pages\organizer-login.html">Request Event Permission</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p>📍 Kandawala Road, Ratmalana,<br>Mount Lavinia 10390</p>
+        <p>✉️ info@events.kdu.ac.lk</p>
+        <p>📞 +94 11 255 3000</p>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+        <a href="https://www.facebook.com/share/1H4kts7Vsn/" class="social-icon" target="_blank">
+          <img src="Images/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/kdu_events_lk?igsh=NjN6c3A4OHNmam03" class="social-icon" target="_blank">
+          <img src="Images/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vb87WPSBfxo99O48ay2g" class="social-icon" target="_blank">
+          <img src="Images/whatsapp.png" alt="WhatsApp">
+        </a>
+      </div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KDU Events. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- End of FOOTER -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // ============================================================================
+    // INTERACTIVE CALENDAR EVENT CARDS - EVENT DATA
+    // ============================================================================
+    const eventData = {
+      '2025-09-12': [
+        {
+          title: 'Mathaka 2025',
+          time: '6:00 PM - 12:00 AM',
+          location: 'Soccer Ground',
+          link: '#',
+          category: 'Sports'
+        }
+      ],
+      '2025-09-30': [
+        {
+          title: 'IEEEXtreme-19.0',
+          time: '8:00 AM - 1:00 PM',
+          location: 'Main Auditorium (FGS)',
+          link: '#',
+          category: 'Academic'
+        }
+      ],
+      '2025-10-02': [
+        {
+          title: 'Ananthe 2025',
+          time: '6:00 PM - 12:00 AM',
+          location: 'Soccer Ground',
+          link: '#',
+          category: 'Cultural'
+        }
+      ],
+      '2025-10-07': [
+        {
+          title: 'IEEE Day 2025',
+          time: '8:00 AM - 1:00 PM',
+          location: 'Main Auditorium (FGS)',
+          link: '#',
+          category: 'Academic'
+        }
+      ],
+      '2025-11-15': [
+        {
+          title: 'Yeh Jawaani 2025',
+          time: '6:00 PM - 12:00 AM',
+          location: 'Cafeteria',
+          link: '#',
+          category: 'Cultural'
+        }
+      ]
+    }
+
+    // Helper function to check if a date has events
+    function hasEvents(dateString) {
+      return eventData.hasOwnProperty(dateString);
+    }
+
+    // Helper function to get events for a date
+    function getEventsForDate(dateString) {
+      return eventData[dateString] || [];
+    }
+
+
+    // ============================================================================
+    // INTERACTIVE CALENDAR EVENT CARDS - JAVASCRIPT
+    // ============================================================================
+
+    // STEP 7-9: Core Functionality - Click Handlers & Card Population
+    let autoCloseTimer = null;
+
+    // Function to show event card with animations
+    function showEventCard(dateString) {
+      const events = getEventsForDate(dateString);
+      // Disable page scrolling when card opens
+      document.body.style.overflow = 'hidden';
+
+
+      if (events.length === 0) {
+        return; // No events for this date
+      }
+
+      // Populate card with event data
+      populateEventCard(dateString, events);
+
+      // Slide calendar left
+      const calendarContainer = document.querySelector('.calendar-container');
+      calendarContainer.classList.add('slide-left');
+
+      // Show event card (slide in from right)
+      setTimeout(() => {
+        const eventCard = document.getElementById('event-card');
+        eventCard.classList.remove('hidden');
+        eventCard.classList.add('show');
+      }, 100);
+
+      // STEP 10: Start auto-close timer (5 seconds)
+      startAutoCloseTimer();
+    }
+
+    // Function to populate event card with data
+    function populateEventCard(dateString, events) {
+      // Format date for display
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = date.toLocaleDateString('en-US', options);
+
+      // Update card header
+      document.getElementById('event-card-date').textContent = formattedDate;
+      const eventCount = events.length;
+      document.getElementById('event-card-count').textContent = 
+        eventCount === 1 ? '1 Event' : `${eventCount} Events`;
+
+      // Populate event list
+      const eventList = document.getElementById('event-list');
+      eventList.innerHTML = '';
+
+      events.forEach(event => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="event-item-title">
+            ${event.title}
+            <span class="event-category-badge">${event.category}</span>
+          </div>
+          <div class="event-item-time">${event.time}</div>
+          <div class="event-item-location">${event.location}</div>
+          <button class="event-more-btn" onclick="goToEventPage('${event.title}')">
+            View Details
+          </button>
+        `;
+
+        // Make entire card clickable
+        li.addEventListener('click', (e) => {
+          if (!e.target.classList.contains('event-more-btn')) {
+            goToEventPage(event.title);
+          }
+        });
+
+        eventList.appendChild(li);
+      });
+    }
+
+    // STEP 11: Function to hide event card and return calendar to center
+    function hideEventCard() {
+      const eventCard = document.getElementById('event-card');
+      const calendarContainer = document.querySelector('.calendar-container');
+
+      // Clear auto-close timer
+      if (autoCloseTimer) {
+        clearTimeout(autoCloseTimer);
+        autoCloseTimer = null;
+
+      // Re-enable page scrolling when card closes
+      document.body.style.overflow = '';
+      }
+
+      // Slide card out
+      eventCard.classList.remove('show');
+      eventCard.classList.add('hidden');
+
+      // Return calendar to center
+      setTimeout(() => {
+        calendarContainer.classList.remove('slide-left');
+      }, 500);
+    }
+
+    // STEP 10: Auto-close timer function
+    function startAutoCloseTimer() {
+      // Clear existing timer if any
+      if (autoCloseTimer) {
+        clearTimeout(autoCloseTimer);
+      }
+
+      // Set 5-second timer
+      autoCloseTimer = setTimeout(() => {
+        hideEventCard();
+      }, 5000);
+    }
+
+    // Function to navigate to event page
+    function goToEventPage(eventTitle) {
+      // Since event pages aren't created yet, show an alert
+      // Replace this with actual navigation when pages are ready
+      alert(`Event page for "${eventTitle}" will be available soon!`);
+
+      // For future implementation:
+      // window.location.href = 'event-details.html?event=' + encodeURIComponent(eventTitle);
+    }
+
+    // STEP 8: Add event dots to calendar dates and attach click handlers
+    function markEventDatesOnCalendar() {
+      // This function will be called after calendar is rendered
+      const calendarDates = document.querySelectorAll('.calendar-date:not(.empty)');
+
+      calendarDates.forEach(dateCell => {
+        const dateText = dateCell.textContent.trim();
+        if (dateText) {
+          // Get current month and year from calendar
+          const monthLabel = document.getElementById('calendarMonthLabel').textContent;
+          const [monthName, year] = monthLabel.split(' ');
+
+          // Create date string in YYYY-MM-DD format
+          const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                             'July', 'August', 'September', 'October', 'November', 'December'];
+          const monthIndex = monthNames.indexOf(monthName) + 1;
+          const dateString = `${year}-${String(monthIndex).padStart(2, '0')}-${String(dateText).padStart(2, '0')}`;
+
+          // Check if this date has events
+          if (hasEvents(dateString)) {
+            dateCell.classList.add('has-event');
+
+            // Add click handler
+            dateCell.addEventListener('click', () => {
+              showEventCard(dateString);
+            });
+          }
+        }
+      });
+    }
+
+    // Close button handler
+    document.addEventListener('DOMContentLoaded', () => {
+      const closeBtn = document.getElementById('closeEventCard');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', hideEventCard);
+      }
+
+      // Close card when clicking outside
+      document.addEventListener('click', (e) => {
+        const eventCard = document.getElementById('event-card');
+        const calendarDates = document.querySelectorAll('.calendar-date');
+
+        if (eventCard && 
+            eventCard.classList.contains('show') && 
+            !eventCard.contains(e.target) &&
+            !Array.from(calendarDates).some(date => date.contains(e.target))) {
+          hideEventCard();
+        }
+      });
+    });
+
+    // IMPORTANT: This function must be called after the calendar is rendered
+    // Add this to your existing calendar rendering function
+    // For example, after renderCalendar() or updateCalendar() is called
+
+    // Override or extend existing calendar generation to mark event dates
+    const originalCalendarFunction = window.generateCalendar || function() {};
+    window.generateCalendar = function() {
+      originalCalendarFunction();
+      // Mark event dates after calendar is rendered
+      setTimeout(markEventDatesOnCalendar, 100);
+    };
+
+
+    // Slideshow
+    let currentSlideIndex = 0;
+    const totalSlides = 5;
+    function autoPlaySlideshow() {
+      currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+      showSlide(currentSlideIndex);
+    }
+    function showSlide(index) {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.slide-dots .dot');
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+    function currentSlide(index) {
+      currentSlideIndex = index;
+      showSlide(currentSlideIndex);
+    }
+    setInterval(autoPlaySlideshow, 5000);
+
+    // Trending events slider
+    const events = [
+      { title: "Yeh Jawaani 2025", date: "September 01, 2025", id: "yeh-jawaani", poster: "assets/posters/yeh jawaani.jpg" },
+      { title: "Mathaka 2025", date: "September 12, 2025", id: "mathaka", poster: "assets/posters/mathaka.jpg" },
+      { title: "IEEEXtreme 19.0", date: "September 30, 2025", id: "IEEEXtreme-19.0", poster: "assets/posters/ac (9).jpg" },
+      { title: "Ananthe 2025", date: "October 02, 2025", id: "ananthe", poster: "assets/posters/ananthe.jpeg" },
+      { title: "IEEE Day 2025", date: "October 07, 2025", id: "ieee-day", poster: "assets/posters/IEEE.jpg" }
+    ];
+
+    let currentEventIndex = 1; // Start with middle card
+    let eventAutoPlayInterval;
+    const EVENT_AUTOPLAY_DELAY = 5000; // 5 seconds
+
+    // Slide events left or right (manual control)
+    function slideEvents(direction) {
+      // Pause auto-play when user interacts
+      stopAutoPlay();
+
+      currentEventIndex += direction;
+      if (currentEventIndex < 0) {
+        currentEventIndex = events.length - 1;
+      } else if (currentEventIndex >= events.length) {
+        currentEventIndex = 0;
+      }
+
+      updateEventCards(direction);
+
+      // Resume auto-play after 5 seconds
+      setTimeout(startAutoPlay, EVENT_AUTOPLAY_DELAY);
+    }
+
+    // Jump to specific event (from dot click)
+    function goToEventSlide(index) {
+      stopAutoPlay();
+      const direction = index > currentEventIndex ? 1 : (index < currentEventIndex ? -1 : 0);
+      currentEventIndex = index;
+      updateEventCards(direction);
+      setTimeout(startAutoPlay, 5000);
+    }
+
+    // Update visible cards and center card styling
+    function updateEventCards(direction = 0) {
+      const slider = document.getElementById('eventsSlider');
+      const dots = document.querySelectorAll('.event-dot');
+
+      // Calculate which 3 cards to show
+      const prevIndex = (currentEventIndex - 1 + events.length) % events.length;
+      const nextIndex = (currentEventIndex + 1) % events.length;
+
+      // Update card content
+      slider.innerHTML = `
+        <div class="event-card" onclick="goToEventPage('${events[prevIndex].id}')">
+          <img src="${events[prevIndex].poster}" alt="${events[prevIndex].title}" class="event-poster">
+          <div class="event-content">
+            <h3>${events[prevIndex].title}</h3>
+            <div class="event-date">${events[prevIndex].date}</div>
+            <button class="more-btn">More</button>
+          </div>
+        </div>
+        <div class="event-card center" onclick="goToEventPage('${events[currentEventIndex].id}')">
+          <img src="${events[currentEventIndex].poster}" alt="${events[currentEventIndex].title}" class="event-poster">
+          <div class="event-content">
+            <h3>${events[currentEventIndex].title}</h3>
+            <div class="event-date">${events[currentEventIndex].date}</div>
+            <button class="more-btn">More</button>
+          </div>
+        </div>
+        <div class="event-card" onclick="goToEventPage('${events[nextIndex].id}')">
+          <img src="${events[nextIndex].poster}" alt="${events[nextIndex].title}" class="event-poster">
+          <div class="event-content">
+            <h3>${events[nextIndex].title}</h3>
+            <div class="event-date">${events[nextIndex].date}</div>
+            <button class="more-btn">More</button>
+          </div>
+        </div>`;
+
+      // Apply smooth sliding animation to center card
+      if (direction !== 0) {
+        const centerCard = slider.querySelector('.event-card.center');
+        if (centerCard) {
+          // Remove any existing animation classes
+          centerCard.classList.remove('slide-from-right', 'slide-from-left');
+
+          // Trigger animation after a tiny delay to ensure DOM is ready
+          setTimeout(() => {
+            if (direction > 0) {
+              // Moving forward: new card slides from right to center
+              centerCard.classList.add('slide-from-right');
+            } else if (direction < 0) {
+              // Moving backward: new card slides from left to center
+              centerCard.classList.add('slide-from-left');
+            }
+
+            // Clean up animation class after completion
+            setTimeout(() => {
+              centerCard.classList.remove('slide-from-right', 'slide-from-left');
+            }, 1800);
+          }, 10);
+        }
+      }
+
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentEventIndex);
+      });
+    }
+
+    // Auto-play functionality
+    function startAutoPlay() {
+      stopAutoPlay(); // Clear any existing interval
+      eventAutoPlayInterval = setInterval(() => {
+        currentEventIndex = (currentEventIndex + 1) % events.length;
+        updateEventCards(1); // Pass direction=1 for forward animation (same as clicking right arrow)
+      }, EVENT_AUTOPLAY_DELAY);
+    }
+
+    function stopAutoPlay() {
+      if (eventAutoPlayInterval) {
+        clearInterval(eventAutoPlayInterval);
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateEventCards();
+      startAutoPlay();
+    });
+
+    // Calendar
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    function updateCalendarHeader() {
+      const label = document.getElementById('calendarMonthLabel');
+      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      label.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+    }
+    function generateCalendar() {
+      const calendarGrid = document.getElementById('calendarGrid');
+      calendarGrid.innerHTML = "";
+      updateCalendarHeader();
+      const today = new Date();
+      const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      days.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'calendar-day-header';
+        dayHeader.textContent = day;
+        calendarGrid.appendChild(dayHeader);
+      });
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-date empty';
+        calendarGrid.appendChild(emptyCell);
+      }
+      for (let date = 1; date <= daysInMonth; date++) {
+        const dateCell = document.createElement('div');
+        dateCell.className = 'calendar-date';
+        dateCell.textContent = date;
+        if (date === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+          dateCell.classList.add('today');
+        }
+        dateCell.addEventListener('click', function() {
+          document.querySelectorAll('.calendar-date.selected').forEach(cell => {
+            if (!cell.classList.contains('today')) {
+              cell.classList.remove('selected');
+            }
+          });
+          if (!this.classList.contains('today')) {
+            this.classList.add('selected');
+          }
+        });
+        calendarGrid.appendChild(dateCell);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('calPrev').onclick = function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+        generateCalendar();
+      };
+      document.getElementById('calNext').onclick = function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+        generateCalendar();
+      };
+      generateCalendar();
+    });
+
+    // Navigation for links/social
+    function goToEventPage(eventId) { alert('Event detail page coming soon! Event: ' + eventId); }
+    function goToFacebook() { window.open('https://facebook.com/kdu', '_blank'); }
+    function goToYouTube() { window.open('https://youtube.com/kdu', '_blank'); }
+    function goToInstagram() { window.open('https://instagram.com/kdu', '_blank'); }
+    function goToLinkedIn() { window.open('https://linkedin.com/company/kdu', '_blank'); }
+  </script>
+
+</body>
+</html>
