@@ -10,9 +10,10 @@ Campus event information is often scattered across multiple channels such as not
 - Poor coordination<br> 
 - Low event participation<br> 
 <br> 
-KDU Events solves these challenges by bringing all event-related information into one unified platform, improving accessibility and engagement across the university.
-<br> 
-## ✨ Key Features<br> 
+KDU Events solves these challenges by bringing all event-related information into one unified platform, improving accessibility and engagement across the university.<br>
+<br>
+
+## ✨ Key Features <br> 
 - 🔍 Advanced Event Discovery<br> 
 Search and filter events easily based on categories and preferences<br> 
 - 📅 Interactive Event Calendar<br> 
@@ -24,13 +25,13 @@ Hero sliders, trending event cards, and smooth animations<br>
 - 📱 Fully Responsive Design<br> 
 Optimized for desktops, tablets, and mobile devices<br> 
 
-## 🛠️ Tech Stack<br> 
+## 🛠️ Tech Stack <br> 
 - HTML5 – Semantic and structured markup<br> 
 - CSS3 – Modular and maintainable styling<br> 
 - JavaScript – Interactive and dynamic behavior<br> 
 - Bootstrap 5.3 – Responsive, mobile-first design<br> 
 
-## ⚙️ Technical Highlights<br> 
+## ⚙️ Technical Highlights <br> 
 - Clean and maintainable code structure<br> 
 - Cross-browser compatibility<br> 
 - Performance-optimized UI components<br> 
