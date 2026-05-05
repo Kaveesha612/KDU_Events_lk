@@ -3,7 +3,7 @@
 KDU Events is a responsive, web-based campus event management platform developed for General Sir John Kotelawala Defence University (KDU). It serves as a centralized digital hub where students, faculty, and event organizers can easily discover, explore, and manage university events.
 <br>
 
-# 🚀 Project Overview
+## 🚀 Project Overview
 <br>
 Campus event information is often scattered across multiple channels such as notice boards, WhatsApp groups, and social media. This leads to:
 
@@ -14,7 +14,7 @@ Campus event information is often scattered across multiple channels such as not
 KDU Events solves these challenges by bringing all event-related information into one unified platform, improving accessibility and engagement across the university. <br>
 <br>
 
-# ✨ Key Features <br>
+## ✨ Key Features <br>
 
 -🔍 Advanced Event Discovery<br>
 Search and filter events easily based on categories and preferences<br>
